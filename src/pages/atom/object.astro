@@ -1,0 +1,103 @@
+---
+import Base from '../../layouts/Base.astro';
+import DiagramFlow from '../../components/DiagramFlow.astro';
+import CTABand from '../../components/CTABand.astro';
+---
+<Base
+  title="S3 object storage for media | The Atom by 33Mega"
+  description="Standards-compliant S3 object storage for media archives, content libraries, MAM integration, cloud workflows and AI — on-prem, open formats, fully supported."
+>
+  <section class="band halftone">
+    <div class="section-inner">
+      <p class="eyebrow">The Atom · Object</p>
+      <h1>The archive that answers back.</h1>
+      <p class="lead" style="max-width: 820px;">
+        Standards-compliant S3 object storage for content libraries, archives and automation —
+        millions of objects, open formats, on hardware you own, integrated with the media tools
+        you already run.
+      </p>
+      <div class="actions">
+        <a class="button primary" href="/contact/">Talk through an archive</a>
+        <a class="button ghost" href="/atom/">Platform overview</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="band white">
+    <div class="section-inner grid-2">
+      <div>
+        <p class="eyebrow">Where it fits</p>
+        <h2>Your content library, finally liquid.</h2>
+        <p>
+          Deep archives on tape are cheap until you need something in a hurry. Public cloud is
+          convenient until the egress bill lands. The Atom's S3 object tier is the middle path:
+          nearline economics, on-premises control, and content that is always seconds — not
+          days — away from the workflow that needs it.
+        </p>
+        <p>
+          Because it speaks standards-compliant S3, the tools you already own — asset managers,
+          data movers, transcoders, workflow engines — connect without adapters or custom code.
+        </p>
+      </div>
+      <div class="pop-panel pink">
+        <h3>Typical object use cases</h3>
+        <ul class="check-list">
+          <li>Content archive and long-term preservation in open formats.</li>
+          <li>MAM, PAM and DAM integration over standards-compliant S3.</li>
+          <li>Nearline libraries for fast partial restores to the edit.</li>
+          <li>Backup targets with versioning and protected retention.</li>
+          <li>AI and ML pipelines reading straight from the library.</li>
+          <li>Cloud and multi-site distribution workflows.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="band">
+    <div class="section-inner">
+      <p class="eyebrow">How it flows</p>
+      <h2>Standard S3 in, open formats at rest.</h2>
+      <DiagramFlow
+        protocol="S3 API"
+        caption="Asset managers, automation and AI pipelines talk standards-compliant S3 to The Atom; content rests in open formats, erasure-coded across the cluster."
+        stages={[
+          { title: 'Applications', lines: ['MAM / PAM / DAM', 'Data movers and automation', 'AI and analytics pipelines'] },
+          { title: 'Object service', lines: ['Standards-compliant S3', 'Versioning and retention', 'Millions of objects per bucket'] },
+          { title: 'The Atom cluster', lines: ['Open formats at rest', 'Erasure coding or replication', 'Self-healing, monitored 24×7'] },
+        ]}
+      />
+    </div>
+  </section>
+
+  <section class="band white">
+    <div class="section-inner grid-2">
+      <div>
+        <p class="eyebrow">Why it matters</p>
+        <h2>An archive is a fifty-year decision.</h2>
+        <p>
+          Formats outlive vendors. The Atom stores your content in open formats readable by open
+          tools for as long as you keep it — so the archive you build today is not a migration
+          project you dread in ten years.
+        </p>
+        <p>
+          And if you ever leave us, the data stays where it is, in formats any competent engineer
+          can operate. <a href="/about/#leave">That promise is in writing.</a>
+        </p>
+      </div>
+      <div class="pop-panel gold">
+        <h3>Economics without the asterisk</h3>
+        <ul class="check-list">
+          <li>No per-terabyte software licence — ever.</li>
+          <li>No egress fees on your own hardware.</li>
+          <li>Standard Dell servers bought at market prices.</li>
+          <li>Grow from ~100 TB to multiple petabytes without migration.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <CTABand
+    title="Tell us about your library."
+    text="Hours of content, formats, restore patterns, the systems that need to reach it — we'll design the object tier around the workflow, not the other way round."
+  />
+</Base>

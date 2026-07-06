@@ -1,0 +1,104 @@
+---
+import Base from '../layouts/Base.astro';
+---
+<Base
+  title="Contact 33Mega | Talk to a storage engineer"
+  description="Talk to 33Mega about The Atom or AI consultancy. One number to call, answered by engineers — tell us about your workflow and we'll design around it."
+>
+  <section class="band halftone tight">
+    <div class="section-inner">
+      <p class="eyebrow">Contact</p>
+      <h1>Talk to an engineer.</h1>
+      <p class="lead" style="max-width: 760px;">
+        Tell us about your workflow — capacity, performance, growth, the systems that need to
+        connect. We'll come back with a design and a straight answer. No obligation, no jargon,
+        no lock-in.
+      </p>
+    </div>
+  </section>
+
+  <section class="band white">
+    <div class="section-inner grid-2">
+      <form class="pop-panel contact-form" action="mailto:33@33mega.cloud" method="post" enctype="text/plain">
+        <h3 class="mt-0">Send us a message</h3>
+        <label>
+          Name
+          <input type="text" name="name" required autocomplete="name" />
+        </label>
+        <label>
+          Email
+          <input type="email" name="email" required autocomplete="email" />
+        </label>
+        <label>
+          Organisation
+          <input type="text" name="organisation" autocomplete="organization" />
+        </label>
+        <label>
+          What are you interested in?
+          <select name="topic">
+            <option>The Atom — storage platform</option>
+            <option>File storage</option>
+            <option>Object storage / archive</option>
+            <option>Block storage</option>
+            <option>AI Consultancy</option>
+            <option>Something else</option>
+          </select>
+        </label>
+        <label>
+          Message
+          <textarea name="message" rows="5" required placeholder="Tell us about the workflow: rough capacity, what connects to it, what's driving the change…"></textarea>
+        </label>
+        <button class="button primary" type="submit">Send message</button>
+        <p class="small" style="margin: 14px 0 0;">
+          This opens your email client, pre-addressed to us. Prefer to write directly?
+          <a href="mailto:33@33mega.cloud">33@33mega.cloud</a>
+        </p>
+      </form>
+      <div>
+        <div class="pop-panel cyan" style="margin-bottom: 28px;">
+          <h3>What happens next</h3>
+          <ul class="check-list">
+            <li>A storage engineer replies — not a sales sequence.</li>
+            <li>We ask about the workflow before we talk about hardware.</li>
+            <li>You get a design and honest sizing, in writing.</li>
+            <li>If we're not the right fit, we'll say so and point you somewhere better.</li>
+          </ul>
+        </div>
+        <div class="pop-panel">
+          <h3>33Mega Ltd</h3>
+          <p style="margin-bottom: 6px;">Cardiff, United Kingdom</p>
+          <p style="margin-bottom: 0;"><a href="mailto:33@33mega.cloud">33@33mega.cloud</a></p>
+        </div>
+      </div>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .contact-form label {
+    display: block;
+    font-weight: 700;
+    margin-bottom: 16px;
+    font-size: 0.95rem;
+  }
+  .contact-form input,
+  .contact-form select,
+  .contact-form textarea {
+    display: block;
+    width: 100%;
+    margin-top: 6px;
+    padding: 10px 12px;
+    font-family: var(--font-body);
+    font-size: 1rem;
+    border: 2.5px solid var(--ink);
+    border-radius: 8px;
+    background: var(--paper);
+    color: var(--ink);
+  }
+  .contact-form input:focus,
+  .contact-form select:focus,
+  .contact-form textarea:focus {
+    outline: 3px solid var(--cyan);
+    outline-offset: 1px;
+  }
+</style>

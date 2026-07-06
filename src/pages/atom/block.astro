@@ -1,0 +1,98 @@
+---
+import Base from '../../layouts/Base.astro';
+import DiagramFlow from '../../components/DiagramFlow.astro';
+import CTABand from '../../components/CTABand.astro';
+---
+<Base
+  title="Block storage for media infrastructure | The Atom by 33Mega"
+  description="Resilient block storage for the systems around your content: virtualisation, databases and playout infrastructure on the same fully supported Ceph platform."
+>
+  <section class="band halftone-cyan">
+    <div class="section-inner">
+      <p class="eyebrow">The Atom · Block</p>
+      <h1>Block storage for everything around the content.</h1>
+      <p class="lead" style="max-width: 820px;">
+        A media facility is more than media files: virtual machines, databases, asset-management
+        back ends, playout and automation systems all need storage too. The Atom serves them
+        resilient block volumes from the same cluster your content lives on.
+      </p>
+      <div class="actions">
+        <a class="button primary" href="/contact/">Talk through your infrastructure</a>
+        <a class="button ghost" href="/atom/">Platform overview</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="band white">
+    <div class="section-inner grid-2">
+      <div>
+        <p class="eyebrow">Where it fits</p>
+        <h2>One platform for the whole machine room.</h2>
+        <p>
+          Most facilities end up with a small zoo of storage: a NAS for files, an archive for
+          content, and a separate SAN just to keep the VMs and databases happy. Three systems,
+          three support contracts, three things to go wrong at 2am.
+        </p>
+        <p>
+          The Atom collapses that zoo. Its block service provides resilient virtual disks for
+          hypervisors and databases from the same self-healing cluster — one platform, one team,
+          one SLA covering the lot.
+        </p>
+      </div>
+      <div class="pop-panel violet">
+        <h3>Typical block use cases</h3>
+        <ul class="check-list">
+          <li>Virtual machine storage for VMware, Proxmox and KVM environments.</li>
+          <li>Databases behind MAM, traffic, scheduling and automation systems.</li>
+          <li>Playout, ingest and channel-in-a-box infrastructure.</li>
+          <li>Kubernetes persistent volumes for containerised media services.</li>
+          <li>Boot and system volumes consolidated off ageing SANs.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="band">
+    <div class="section-inner">
+      <p class="eyebrow">How it flows</p>
+      <h2>Virtual disks, physically dependable.</h2>
+      <DiagramFlow
+        protocol="RBD / iSCSI"
+        caption="Hypervisors and databases consume block volumes from The Atom; every volume is protected across the cluster and rebuilt automatically on failure."
+        stages={[
+          { title: 'Consumers', lines: ['Hypervisors and VMs', 'Databases and app servers', 'Kubernetes workloads'] },
+          { title: 'Block service', lines: ['RBD virtual block devices', 'Snapshots and clones', 'Thin provisioning'] },
+          { title: 'The Atom cluster', lines: ['Distributed across nodes', 'Replication or erasure coding', 'Self-healing, monitored 24×7'] },
+        ]}
+      />
+    </div>
+  </section>
+
+  <section class="band white">
+    <div class="section-inner grid-2">
+      <div class="pop-panel cream">
+        <h3>Fewer vendors, fewer 2am arguments</h3>
+        <p>
+          When the VM store, the file share and the archive are one platform, there is no
+          finger-pointing between suppliers — a failure anywhere is ours to fix, end to end,
+          with a four-hour software SLA and next-business-day hardware replacement behind it.
+        </p>
+      </div>
+      <div>
+        <p class="eyebrow">Same guarantees</p>
+        <h2>Infrastructure-grade, media-tested.</h2>
+        <ul class="check-list">
+          <li>Volumes survive drive and node failure by design.</li>
+          <li>Snapshots and clones for fast recovery and test environments.</li>
+          <li>Performance sized to the job with NVMe acceleration.</li>
+          <li>Scales alongside your file and object capacity — no separate island.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <CTABand
+    title="One cluster for content and infrastructure."
+    text="Tell us what runs in your machine room and we'll show you what consolidating onto The Atom looks like — including what it saves."
+  />
+</Base>

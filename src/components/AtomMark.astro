@@ -1,0 +1,42 @@
+---
+// Inline SVG rendering of the 33Mega atom mark: two electron orbits and a
+// rotated square, in the brand cyan → violet → magenta gradient.
+interface Props {
+  size?: number;
+  class?: string;
+}
+const { size = 44, class: className = '' } = Astro.props;
+const uid = Math.random().toString(36).slice(2, 7);
+---
+<svg
+  class={className}
+  width={size}
+  height={size}
+  viewBox="0 0 100 100"
+  fill="none"
+  xmlns="http://www.w3.org/2000/svg"
+  aria-hidden="true"
+>
+  <defs>
+    <linearGradient id={`g1-${uid}`} x1="0" y1="0" x2="100" y2="100" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#2bd4ff" />
+      <stop offset="0.55" stop-color="#9d7bff" />
+      <stop offset="1" stop-color="#f0439c" />
+    </linearGradient>
+    <linearGradient id={`g2-${uid}`} x1="100" y1="0" x2="0" y2="100" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#9d7bff" />
+      <stop offset="1" stop-color="#2bd4ff" />
+    </linearGradient>
+    <linearGradient id={`g3-${uid}`} x1="20" y1="20" x2="80" y2="80" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#b18cff" />
+      <stop offset="1" stop-color="#f0439c" />
+    </linearGradient>
+  </defs>
+  <rect x="21.7" y="21.7" width="56.6" height="56.6" rx="3"
+    transform="rotate(45 50 50)" stroke={`url(#g3-${uid})`} stroke-width="6" />
+  <ellipse cx="50" cy="50" rx="42" ry="16.5"
+    transform="rotate(-32 50 50)" stroke={`url(#g1-${uid})`} stroke-width="6" />
+  <ellipse cx="50" cy="50" rx="42" ry="16.5"
+    transform="rotate(32 50 50)" stroke={`url(#g2-${uid})`} stroke-width="6" />
+  <circle cx="50" cy="50" r="9" fill={`url(#g3-${uid})`} />
+</svg>

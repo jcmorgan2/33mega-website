@@ -1,0 +1,40 @@
+---
+import Base from '../layouts/Base.astro';
+import Starburst from '../components/Starburst.astro';
+---
+<Base
+  title="Page not found | 33Mega"
+  description="That page isn't here. Fortunately, everything else is exactly where we said it would be."
+>
+  <section class="band halftone">
+    <div class="section-inner center notfound">
+      <Starburst class="nf-burst" color="#f0439c" />
+      <div class="nf-inner">
+        <p class="eyebrow">404</p>
+        <h1>This page has left the cluster.</h1>
+        <p class="lead" style="max-width: 640px; margin-left: auto; margin-right: auto;">
+          Unlike your data on The Atom, this page was not stored in multiple copies.
+          Everything else is exactly where we said it would be.
+        </p>
+        <div class="actions" style="justify-content: center;">
+          <a class="button primary" href="/">Back to the homepage</a>
+          <a class="button ghost" href="/atom/">Explore The Atom</a>
+        </div>
+      </div>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .notfound { position: relative; padding: 60px 0; }
+  .notfound :global(.nf-burst) {
+    position: absolute;
+    width: 320px;
+    height: 320px;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    opacity: 0.25;
+  }
+  .nf-inner { position: relative; }
+</style>

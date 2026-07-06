@@ -1,0 +1,34 @@
+---
+import Base from '../../layouts/Base.astro';
+import { getCollection, render } from 'astro:content';
+
+export async function getStaticPaths() {
+  const posts = await getCollection('news');
+  return posts.map((post) => ({
+    params: { id: post.id },
+    props: { post },
+  }));
+}
+
+const { post } = Astro.props;
+const { Content } = await render(post);
+---
+<Base title={`${post.data.title} | 33Mega News`} description={post.data.description}>
+  <section class="band halftone tight">
+    <div class="section-inner">
+      <p class="eyebrow">{post.data.tag}</p>
+      <h1 style="max-width: 860px;">{post.data.title}</h1>
+      <p class="small">
+        {post.data.author} · {post.data.pubDate.toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' })}
+      </p>
+    </div>
+  </section>
+  <section class="band white">
+    <div class="section-inner">
+      <article class="prose">
+        <Content />
+      </article>
+      <p style="margin-top: 40px;"><a class="button ghost" href="/news/">← All news</a></p>
+    </div>
+  </section>
+</Base>

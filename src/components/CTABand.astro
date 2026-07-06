@@ -1,0 +1,43 @@
+---
+import Starburst from './Starburst.astro';
+
+interface Props {
+  title?: string;
+  text?: string;
+  buttonLabel?: string;
+  buttonHref?: string;
+}
+const {
+  title = 'Talk to a storage engineer, not a sales script.',
+  text = 'Tell us about your workflow — capacity, performance, growth — and we will design an Atom around it. No obligation, no jargon, no lock-in.',
+  buttonLabel = 'Get in touch',
+  buttonHref = '/contact/',
+} = Astro.props;
+---
+<section class="band ink cta-band">
+  <Starburst class="cta-burst left" color="#e8a33d" />
+  <Starburst class="cta-burst right" color="#2bd4ff" />
+  <div class="section-inner center cta-inner">
+    <h2>{title}</h2>
+    <p class="lead">{text}</p>
+    <div class="actions center-actions">
+      <a class="button primary" href={buttonHref}>{buttonLabel}</a>
+    </div>
+  </div>
+</section>
+
+<style>
+  .cta-band { overflow: hidden; position: relative; }
+  .cta-inner { position: relative; max-width: 720px; }
+  .center-actions { justify-content: center; }
+  .cta-band :global(.cta-burst) {
+    position: absolute;
+    width: 260px;
+    height: 260px;
+    opacity: 0.35;
+    top: 50%;
+    transform: translateY(-50%);
+  }
+  .cta-band :global(.cta-burst.left) { left: -60px; }
+  .cta-band :global(.cta-burst.right) { right: -60px; }
+</style>

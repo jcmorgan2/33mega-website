@@ -1,0 +1,202 @@
+---
+import { slides } from '../data/slides';
+import AtomMark from './AtomMark.astro';
+import Starburst from './Starburst.astro';
+---
+<section class="hero-slider" aria-roledescription="carousel" aria-label="33Mega highlights">
+  <div class="slides">
+    {slides.map((slide, i) => (
+      <div
+        class:list={['slide', { active: i === 0 }]}
+        role="group"
+        aria-roledescription="slide"
+        aria-label={`${i + 1} of ${slides.length}`}
+        aria-hidden={i === 0 ? 'false' : 'true'}
+      >
+        <div class="section-inner slide-inner">
+          <div class="slide-copy">
+            <p class="eyebrow">{slide.eyebrow}</p>
+            <h2 class="slide-title">{slide.title}</h2>
+            <p class="lead">{slide.text}</p>
+            <div class="actions">
+              {slide.ctas.map((cta) => (
+                <a class:list={['button', cta.style ?? 'ghost']} href={cta.href}>{cta.label}</a>
+              ))}
+            </div>
+          </div>
+          <div class="slide-art" aria-hidden="true">
+            <Starburst class="burst" color={slide.burst} />
+            {slide.art === 'atom' && <AtomMark size={230} class="art-main" />}
+            {slide.art === 'orbit' && (
+              <svg class="art-main" width="230" height="230" viewBox="0 0 100 100" fill="none">
+                <circle cx="50" cy="50" r="40" stroke="#2bd4ff" stroke-width="5" />
+                <circle cx="50" cy="50" r="26" stroke="#9d7bff" stroke-width="5" stroke-dasharray="9 7" />
+                <circle cx="50" cy="50" r="9" fill="#f0439c" />
+                <circle cx="88" cy="42" r="6" fill="#2bd4ff" stroke="#17121f" stroke-width="2.5" />
+                <circle cx="27" cy="72" r="6" fill="#e8a33d" stroke="#17121f" stroke-width="2.5" />
+              </svg>
+            )}
+            {slide.art === 'exit' && (
+              <svg class="art-main" width="230" height="230" viewBox="0 0 100 100" fill="none">
+                <rect x="24" y="14" width="52" height="72" rx="5" stroke="#17121f" stroke-width="5" fill="#fff" />
+                <rect x="33" y="24" width="34" height="52" rx="3" stroke="#f0439c" stroke-width="4" fill="#ffe3f1" />
+                <circle cx="61" cy="50" r="4.5" fill="#17121f" />
+                <path d="M50 92 h32" stroke="#17121f" stroke-width="5" stroke-linecap="round" />
+              </svg>
+            )}
+            {slide.art === 'spark' && (
+              <svg class="art-main" width="230" height="230" viewBox="0 0 100 100" fill="none">
+                <path d="M50 8 l9 30 30 9 -30 9 -9 30 -9 -30 -30 -9 30 -9 z" fill="#9d7bff" stroke="#17121f" stroke-width="4" stroke-linejoin="round" />
+                <circle cx="50" cy="47" r="8" fill="#fff9ef" stroke="#17121f" stroke-width="3" />
+              </svg>
+            )}
+          </div>
+        </div>
+      </div>
+    ))}
+  </div>
+
+  <div class="slider-controls section-inner">
+    <button class="arrow prev" type="button" aria-label="Previous slide">←</button>
+    <div class="dots" role="tablist">
+      {slides.map((_, i) => (
+        <button
+          class:list={['dot', { active: i === 0 }]}
+          type="button"
+          role="tab"
+          aria-label={`Go to slide ${i + 1}`}
+          data-index={i}
+        ></button>
+      ))}
+    </div>
+    <button class="arrow next" type="button" aria-label="Next slide">→</button>
+  </div>
+</section>
+
+<script>
+  const slider = document.querySelector('.hero-slider');
+  if (slider) {
+    const slideEls = [...slider.querySelectorAll<HTMLElement>('.slide')];
+    const dots = [...slider.querySelectorAll<HTMLButtonElement>('.dot')];
+    let current = 0;
+    let timer: ReturnType<typeof setInterval> | undefined;
+
+    const show = (index: number) => {
+      current = (index + slideEls.length) % slideEls.length;
+      slideEls.forEach((el, i) => {
+        el.classList.toggle('active', i === current);
+        el.setAttribute('aria-hidden', String(i !== current));
+      });
+      dots.forEach((d, i) => d.classList.toggle('active', i === current));
+    };
+
+    const restart = () => {
+      clearInterval(timer);
+      timer = setInterval(() => show(current + 1), 7000);
+    };
+
+    slider.querySelector('.prev')?.addEventListener('click', () => { show(current - 1); restart(); });
+    slider.querySelector('.next')?.addEventListener('click', () => { show(current + 1); restart(); });
+    dots.forEach((dot) =>
+      dot.addEventListener('click', () => { show(Number(dot.dataset.index)); restart(); })
+    );
+    slider.addEventListener('mouseenter', () => clearInterval(timer));
+    slider.addEventListener('mouseleave', restart);
+    restart();
+  }
+</script>
+
+<style>
+  .hero-slider {
+    position: relative;
+    border-bottom: var(--border);
+    background:
+      radial-gradient(circle, rgba(232, 163, 61, 0.16) 1.6px, transparent 1.6px);
+    background-size: 15px 15px;
+    background-color: var(--paper);
+    overflow: hidden;
+  }
+  .slides { position: relative; min-height: 480px; }
+  .slide {
+    position: absolute;
+    inset: 0;
+    opacity: 0;
+    transform: translateX(24px);
+    transition: opacity 0.45s ease, transform 0.45s ease;
+    pointer-events: none;
+    display: flex;
+    align-items: center;
+  }
+  .slide.active {
+    opacity: 1;
+    transform: none;
+    pointer-events: auto;
+    position: relative;
+  }
+  .slide-inner {
+    display: grid;
+    grid-template-columns: 1.35fr 1fr;
+    align-items: center;
+    gap: 40px;
+    padding-top: 64px;
+    padding-bottom: 64px;
+    width: 100%;
+  }
+  .slide-title { font-size: clamp(2rem, 4.6vw, 3.2rem); font-family: var(--font-display); }
+  .slide-art {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 300px;
+  }
+  .slide-art :global(.burst) {
+    position: absolute;
+    width: 340px;
+    height: 340px;
+    opacity: 0.9;
+  }
+  .slide-art :global(.art-main) {
+    position: relative;
+    filter: drop-shadow(5px 5px 0 rgba(23, 18, 31, 0.28));
+  }
+  .slider-controls {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 22px;
+    padding-bottom: 28px;
+  }
+  .arrow {
+    font-family: var(--font-body);
+    font-weight: 700;
+    font-size: 1.05rem;
+    background: #fff;
+    border: var(--border);
+    border-radius: 50%;
+    width: 44px;
+    height: 44px;
+    cursor: pointer;
+    box-shadow: var(--shadow-pop-sm);
+    transition: transform 0.12s ease, box-shadow 0.12s ease;
+  }
+  .arrow:hover { transform: translate(2px, 2px); box-shadow: 1px 1px 0 var(--ink); }
+  .dots { display: flex; gap: 12px; }
+  .dot {
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    border: 2.5px solid var(--ink);
+    background: #fff;
+    cursor: pointer;
+    padding: 0;
+  }
+  .dot.active { background: var(--magenta); }
+  @media (max-width: 900px) {
+    .slide-inner { grid-template-columns: 1fr; gap: 12px; padding-top: 44px; padding-bottom: 44px; }
+    .slide-art { min-height: 210px; }
+    .slide-art :global(.burst) { width: 230px; height: 230px; }
+    .slide-art :global(.art-main) { width: 160px; height: 160px; }
+    .slides { min-height: 620px; }
+  }
+</style>

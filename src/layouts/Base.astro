@@ -1,0 +1,280 @@
+---
+import '../styles/global.css';
+import AtomMark from '../components/AtomMark.astro';
+
+interface Props {
+  title: string;
+  description: string;
+}
+const { title, description } = Astro.props;
+const canonical = new URL(Astro.url.pathname, Astro.site);
+---
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <meta property="og:site_name" content="33Mega" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content={new URL('/images/33mega-logo.png', Astro.site)} />
+    <meta property="og:type" content="website" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <link rel="alternate" type="application/rss+xml" title="33Mega News" href="/rss.xml" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Michroma&family=Space+Grotesk:wght@400;600;700&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <header class="site-header">
+      <nav class="nav" aria-label="Main navigation">
+        <a class="brand" href="/">
+          <AtomMark size={40} />
+          <span class="wordmark">33MEGA</span>
+        </a>
+        <button class="nav-toggle" type="button" aria-label="Toggle menu" aria-expanded="false">
+          <span></span><span></span><span></span>
+        </button>
+        <div class="nav-links">
+          <div class="nav-dropdown">
+            <a class="nav-dropdown-toggle" href="/atom/">The Atom ▾</a>
+            <div class="nav-dropdown-menu">
+              <a href="/atom/">Platform overview</a>
+              <a href="/atom/file/">File storage</a>
+              <a href="/atom/object/">Object storage</a>
+              <a href="/atom/block/">Block storage</a>
+            </div>
+          </div>
+          <a href="/ai-consultancy/">AI Consultancy</a>
+          <a href="/about/">About</a>
+          <a href="/news/">News</a>
+          <a class="button primary nav-cta" href="/contact/">Talk to an engineer</a>
+        </div>
+      </nav>
+    </header>
+
+    <main>
+      <slot />
+    </main>
+
+    <footer class="site-footer">
+      <div class="section-inner footer-grid">
+        <div>
+          <a class="brand light" href="/">
+            <AtomMark size={36} />
+            <span class="wordmark">33MEGA</span>
+          </a>
+          <p class="footer-tag">Every human. 33 megatons of good.</p>
+          <p class="small-light">Fully supported media storage, built on proven open source.<br />Cardiff, UK.</p>
+        </div>
+        <div>
+          <h4>The Atom</h4>
+          <a href="/atom/">Platform overview</a>
+          <a href="/atom/file/">File storage</a>
+          <a href="/atom/object/">Object storage</a>
+          <a href="/atom/block/">Block storage</a>
+        </div>
+        <div>
+          <h4>Company</h4>
+          <a href="/about/">About us</a>
+          <a href="/ai-consultancy/">AI Consultancy</a>
+          <a href="/news/">News</a>
+          <a href="/contact/">Contact</a>
+        </div>
+        <div>
+          <h4>Talk to us</h4>
+          <a href="mailto:33@33mega.cloud">33@33mega.cloud</a>
+          <p class="small-light">One number to call, answered by storage engineers — not a triage script.</p>
+        </div>
+      </div>
+      <div class="section-inner footer-legal">
+        <p>© {new Date().getFullYear()} 33Mega Ltd. The Atom is built on Ceph, open-source software with more than 10,000 deployments worldwide.</p>
+      </div>
+    </footer>
+
+    <script>
+      const toggle = document.querySelector('.nav-toggle');
+      const links = document.querySelector('.nav-links');
+      toggle?.addEventListener('click', () => {
+        const open = links?.classList.toggle('open');
+        toggle.setAttribute('aria-expanded', String(!!open));
+      });
+    </script>
+
+    <style>
+      .site-header {
+        position: sticky;
+        top: 0;
+        z-index: 50;
+        background: var(--paper);
+        border-bottom: var(--border);
+      }
+      .nav {
+        max-width: var(--max-width);
+        margin: 0 auto;
+        padding: 14px 24px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 20px;
+      }
+      .brand {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        text-decoration: none;
+        color: var(--ink);
+      }
+      .wordmark {
+        font-family: var(--font-wordmark);
+        font-size: 1.15rem;
+        letter-spacing: 0.18em;
+        font-weight: 400;
+        background: linear-gradient(100deg, var(--cyan-deep), var(--violet), var(--magenta-deep));
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: transparent;
+      }
+      .nav-links {
+        display: flex;
+        align-items: center;
+        gap: 26px;
+      }
+      .nav-links > a,
+      .nav-dropdown-toggle {
+        font-weight: 700;
+        text-decoration: none;
+        color: var(--ink);
+        font-size: 1rem;
+      }
+      .nav-links > a:hover,
+      .nav-dropdown-toggle:hover { color: var(--magenta-deep); }
+      .nav-cta { padding: 9px 18px; font-size: 0.95rem; }
+      .nav-dropdown { position: relative; }
+      .nav-dropdown-menu {
+        display: none;
+        position: absolute;
+        top: calc(100% + 10px);
+        left: -14px;
+        background: #fff;
+        border: var(--border);
+        border-radius: 10px;
+        box-shadow: var(--shadow-pop-sm);
+        min-width: 210px;
+        padding: 8px 0;
+      }
+      .nav-dropdown:hover .nav-dropdown-menu,
+      .nav-dropdown:focus-within .nav-dropdown-menu { display: block; }
+      .nav-dropdown-menu a {
+        display: block;
+        padding: 9px 18px;
+        text-decoration: none;
+        color: var(--ink);
+        font-weight: 600;
+      }
+      .nav-dropdown-menu a:hover { background: var(--paper-dim); color: var(--magenta-deep); }
+      .nav-toggle { display: none; }
+
+      @media (max-width: 900px) {
+        .nav-toggle {
+          display: flex;
+          flex-direction: column;
+          gap: 5px;
+          background: none;
+          border: none;
+          padding: 8px;
+          cursor: pointer;
+        }
+        .nav-toggle span {
+          width: 26px;
+          height: 3.5px;
+          background: var(--ink);
+          border-radius: 2px;
+        }
+        .nav-links {
+          display: none;
+          position: absolute;
+          top: 100%;
+          left: 0;
+          right: 0;
+          flex-direction: column;
+          align-items: flex-start;
+          background: var(--paper);
+          border-bottom: var(--border);
+          padding: 18px 24px 24px;
+          gap: 16px;
+        }
+        .nav-links.open { display: flex; }
+        .nav-dropdown-menu {
+          display: block;
+          position: static;
+          border: none;
+          box-shadow: none;
+          background: none;
+          padding: 4px 0 0 16px;
+          min-width: 0;
+        }
+      }
+
+      .site-footer {
+        background: var(--ink);
+        color: var(--paper);
+        padding: 56px 0 24px;
+        margin-top: 0;
+      }
+      .footer-grid {
+        display: grid;
+        grid-template-columns: 2fr 1fr 1fr 1.4fr;
+        gap: 36px;
+      }
+      .footer-grid h4 {
+        font-family: var(--font-body);
+        font-weight: 700;
+        margin: 0 0 12px;
+        color: var(--gold-soft);
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
+        font-size: 0.85rem;
+      }
+      .footer-grid a {
+        display: block;
+        color: var(--paper);
+        text-decoration: none;
+        margin-bottom: 9px;
+        font-weight: 600;
+      }
+      .footer-grid a:hover { color: var(--cyan); }
+      .brand.light { margin-bottom: 12px; display: inline-flex; }
+      .brand.light .wordmark {
+        background: linear-gradient(100deg, var(--cyan), var(--violet-soft), var(--magenta));
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: transparent;
+      }
+      .footer-tag {
+        font-family: var(--font-display);
+        font-size: 1.05rem;
+        margin: 0 0 10px;
+        color: var(--gold-soft);
+      }
+      .small-light { font-size: 0.9rem; color: #b9b3c6; }
+      .footer-legal {
+        margin-top: 42px;
+        padding-top: 18px;
+        border-top: 1px solid #37304a;
+        font-size: 0.85rem;
+        color: #8b8598;
+      }
+      @media (max-width: 900px) {
+        .footer-grid { grid-template-columns: 1fr; gap: 26px; }
+      }
+    </style>
+  </body>
+</html>

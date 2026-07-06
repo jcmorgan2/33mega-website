@@ -1,0 +1,279 @@
+/* ==========================================================================
+   33Mega design system — 1980s pop-art meets dependable infrastructure.
+   Palette drawn from the 33Mega atom mark: cyan → violet → magenta, with
+   pop-art gold for starbursts and cream paper for the page itself.
+   ========================================================================== */
+
+:root {
+  /* Paper & ink */
+  --paper: #fff9ef;
+  --paper-dim: #f7efdd;
+  --ink: #17121f;
+  --ink-soft: #3d3549;
+
+  /* Atom palette */
+  --cyan: #2bd4ff;
+  --cyan-deep: #0aa6d6;
+  --violet: #9d7bff;
+  --violet-soft: #b7a3f2;
+  --magenta: #f0439c;
+  --magenta-deep: #c9247c;
+  --gold: #e8a33d;
+  --gold-soft: #f3c66f;
+
+  /* Serious diagram palette */
+  --diagram-bg: #ffffff;
+  --diagram-line: #4a4458;
+  --diagram-muted: #8b8598;
+
+  --radius: 14px;
+  --border: 3px solid var(--ink);
+  --shadow-pop: 7px 7px 0 var(--ink);
+  --shadow-pop-sm: 4px 4px 0 var(--ink);
+
+  --font-display: 'Archivo Black', 'Arial Black', sans-serif;
+  --font-body: 'Space Grotesk', 'Helvetica Neue', Arial, sans-serif;
+  --font-wordmark: 'Michroma', 'Space Grotesk', sans-serif;
+
+  --max-width: 1160px;
+}
+
+* { box-sizing: border-box; }
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--font-body);
+  font-size: 1.05rem;
+  line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
+}
+
+img { max-width: 100%; height: auto; }
+
+h1, h2, h3 {
+  font-family: var(--font-display);
+  line-height: 1.12;
+  letter-spacing: -0.01em;
+  margin: 0 0 0.6em;
+}
+
+h1 { font-size: clamp(2.1rem, 5vw, 3.4rem); }
+h2 { font-size: clamp(1.6rem, 3.6vw, 2.4rem); }
+h3 { font-size: 1.18rem; font-family: var(--font-body); font-weight: 700; }
+
+p { margin: 0 0 1em; }
+
+a { color: var(--magenta-deep); text-decoration-thickness: 2px; }
+a:hover { color: var(--ink); }
+
+.section-inner {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+/* --------------------------------------------------------------------------
+   Bands
+   -------------------------------------------------------------------------- */
+.band { padding: 72px 0; position: relative; }
+.band.tight { padding: 48px 0; }
+.band.white { background: #fff; border-top: var(--border); border-bottom: var(--border); }
+.band.ink { background: var(--ink); color: var(--paper); }
+.band.ink h2, .band.ink h3 { color: #fff; }
+.band.ink a { color: var(--cyan); }
+
+/* Halftone dot texture — classic comic print */
+.halftone {
+  background-image: radial-gradient(circle, rgba(240, 67, 156, 0.22) 1.6px, transparent 1.6px);
+  background-size: 14px 14px;
+}
+.halftone-cyan {
+  background-image: radial-gradient(circle, rgba(43, 212, 255, 0.25) 1.6px, transparent 1.6px);
+  background-size: 14px 14px;
+}
+
+/* --------------------------------------------------------------------------
+   Pop-art building blocks
+   -------------------------------------------------------------------------- */
+.pop-panel {
+  background: #fff;
+  border: var(--border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-pop);
+  padding: 28px;
+}
+
+.pop-panel.cream { background: var(--paper); }
+.pop-panel.cyan { background: #d9f6ff; }
+.pop-panel.pink { background: #ffe3f1; }
+.pop-panel.violet { background: #ece5ff; }
+.pop-panel.gold { background: #fff0d4; }
+
+.eyebrow {
+  display: inline-block;
+  font-family: var(--font-body);
+  font-weight: 700;
+  font-size: 0.82rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  background: var(--ink);
+  color: var(--gold-soft);
+  padding: 5px 14px;
+  border-radius: 999px;
+  margin-bottom: 18px;
+}
+
+.eyebrow.light { background: var(--gold-soft); color: var(--ink); }
+
+.lead { font-size: 1.18rem; line-height: 1.6; }
+
+.kicker {
+  font-family: var(--font-display);
+  background: linear-gradient(100deg, var(--cyan-deep), var(--violet), var(--magenta));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+/* Buttons */
+.button {
+  display: inline-block;
+  font-family: var(--font-body);
+  font-weight: 700;
+  font-size: 1rem;
+  text-decoration: none;
+  color: var(--ink);
+  background: var(--gold-soft);
+  border: var(--border);
+  border-radius: 10px;
+  padding: 12px 24px;
+  box-shadow: var(--shadow-pop-sm);
+  transition: transform 0.12s ease, box-shadow 0.12s ease;
+}
+.button:hover {
+  color: var(--ink);
+  transform: translate(2px, 2px);
+  box-shadow: 2px 2px 0 var(--ink);
+}
+.button.primary { background: var(--magenta); color: #fff; }
+.button.cyan { background: var(--cyan); }
+.button.ghost { background: #fff; }
+
+.actions { display: flex; flex-wrap: wrap; gap: 14px; margin-top: 26px; }
+
+/* Check list */
+.check-list { list-style: none; padding: 0; margin: 0; }
+.check-list li {
+  padding-left: 34px;
+  position: relative;
+  margin-bottom: 12px;
+}
+.check-list li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 3px;
+  width: 20px;
+  height: 20px;
+  border: 2.5px solid var(--ink);
+  border-radius: 50%;
+  background:
+    linear-gradient(135deg, var(--cyan), var(--violet), var(--magenta));
+}
+.check-list li::after {
+  content: "✓";
+  position: absolute;
+  left: 5px;
+  top: 1px;
+  font-weight: 900;
+  font-size: 0.8rem;
+  color: #fff;
+}
+
+/* Grids */
+.grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; align-items: start; }
+.grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 28px; }
+.grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 22px; }
+
+@media (max-width: 900px) {
+  .grid-2, .grid-3, .grid-4 { grid-template-columns: 1fr; }
+  .band { padding: 52px 0; }
+}
+@media (min-width: 640px) and (max-width: 900px) {
+  .grid-4 { grid-template-columns: 1fr 1fr; }
+}
+
+/* Big stat / claim chips */
+.stat-chip {
+  border: var(--border);
+  border-radius: var(--radius);
+  background: #fff;
+  box-shadow: var(--shadow-pop-sm);
+  padding: 20px 22px;
+  text-align: center;
+}
+.stat-chip .num {
+  font-family: var(--font-display);
+  font-size: 1.9rem;
+  display: block;
+  background: linear-gradient(100deg, var(--cyan-deep), var(--violet), var(--magenta));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+.stat-chip .label { font-size: 0.92rem; font-weight: 600; color: var(--ink-soft); }
+
+/* Speech-bubble style quote */
+.pop-quote {
+  position: relative;
+  background: #fff;
+  border: var(--border);
+  border-radius: 18px;
+  box-shadow: var(--shadow-pop);
+  padding: 30px 34px;
+  font-size: 1.15rem;
+  font-weight: 600;
+}
+.pop-quote::after {
+  content: "";
+  position: absolute;
+  bottom: -21px;
+  left: 56px;
+  width: 30px;
+  height: 30px;
+  background: #fff;
+  border-right: var(--border);
+  border-bottom: var(--border);
+  transform: skewX(35deg) rotate(45deg);
+}
+
+/* Table */
+.spec-table { width: 100%; border-collapse: collapse; background: #fff; border: var(--border); box-shadow: var(--shadow-pop-sm); }
+.spec-table th, .spec-table td { text-align: left; padding: 12px 16px; border-bottom: 2px solid #e8e2d4; vertical-align: top; }
+.spec-table th { font-family: var(--font-body); font-weight: 700; background: var(--paper-dim); width: 34%; }
+.spec-table tr:last-child th, .spec-table tr:last-child td { border-bottom: none; }
+
+/* Prose (blog posts) */
+.prose { max-width: 760px; }
+.prose h2 { font-size: 1.5rem; margin-top: 1.6em; }
+.prose h3 { margin-top: 1.4em; }
+.prose blockquote {
+  margin: 1.4em 0;
+  padding: 14px 22px;
+  border-left: 6px solid var(--magenta);
+  background: #fff;
+  font-weight: 600;
+}
+.prose ul { padding-left: 1.3em; }
+.prose li { margin-bottom: 0.4em; }
+
+/* Utility */
+.center { text-align: center; }
+.mt-0 { margin-top: 0; }
+.small { font-size: 0.9rem; color: var(--ink-soft); }

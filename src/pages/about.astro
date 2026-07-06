@@ -1,0 +1,228 @@
+---
+import Base from '../layouts/Base.astro';
+import CTABand from '../components/CTABand.astro';
+import Starburst from '../components/Starburst.astro';
+import AtomMark from '../components/AtomMark.astro';
+---
+<Base
+  title="About 33Mega | Every human. 33 megatons of good."
+  description="33Mega was founded by Peter Watling and Jonathan Morgan so organisations never have to choose between the freedom of open technology and the confidence of a fully supported product."
+>
+  <!-- Origin story -->
+  <section class="band halftone">
+    <div class="section-inner grid-2" style="align-items: center;">
+      <div>
+        <p class="eyebrow">The name</p>
+        <h1>Every human. 33 megatons of good.</h1>
+        <p class="lead">
+          When Jonathan was a child, someone told him that an atom bomb carried a megaton of
+          destruction — but that people, together, were capable of thirty-three times that much
+          good. The idea stuck.
+        </p>
+        <p>
+          33Mega is named for it: a reminder of what technology is for. Our job is to build
+          infrastructure that quietly does its work, so the people who rely on it — storytellers,
+          archivists, broadcasters, engineers — are free to do theirs.
+        </p>
+      </div>
+      <div class="origin-art" aria-hidden="true">
+        <Starburst class="origin-burst" color="#e8a33d" />
+        <AtomMark size={260} class="origin-atom" />
+      </div>
+    </div>
+  </section>
+
+  <!-- Mission -->
+  <section class="band white">
+    <div class="section-inner center">
+      <p class="eyebrow">The mission</p>
+      <h2 style="max-width: 860px; margin-left: auto; margin-right: auto;">
+        Organisations should never have to choose between the freedom of open technology and the
+        confidence of a fully supported product.
+      </h2>
+    </div>
+  </section>
+
+  <!-- Why we started -->
+  <section class="band">
+    <div class="section-inner grid-2">
+      <div>
+        <p class="eyebrow">Why we started 33Mega</p>
+        <h2>Two compromises we refused to keep making.</h2>
+        <p>
+          For years, organisations buying storage have faced a choice between two compromises.
+        </p>
+        <p>
+          On one side sit the traditional enterprise vendors. Their platforms work, but at a
+          price: proprietary hardware, capacity-based licensing, and upgrade cycles dictated by
+          someone else's roadmap. Migrating away gets harder every year as the data estate grows.
+        </p>
+        <p>
+          On the other side sits open-source software. Platforms like Ceph have matured into some
+          of the most capable storage technologies in existence — they run at CERN, inside
+          hyperscale clouds, and across more than 10,000 deployments worldwide. But open source
+          is a platform, not a product. Running it well takes senior storage engineers, and most
+          media organisations don't have that team and can't justify hiring one.
+        </p>
+        <p>
+          <strong>Proprietary platforms are expensive and restrictive; running open source
+          yourself is hard. 33Mega is the bridge between those two worlds.</strong>
+        </p>
+      </div>
+      <div class="pop-panel gold">
+        <h3>What we believe</h3>
+        <p class="small" style="color: var(--ink);">We keep our beliefs short, because we intend to be held to them.</p>
+        <ul class="check-list">
+          <li><strong>Customers should own their data.</strong> Open formats, standard protocols, hardware you own — including the freedom to leave us.</li>
+          <li><strong>Support matters more than licensing.</strong> We charge for the work of keeping storage healthy, not for permission to use capacity.</li>
+          <li><strong>Infrastructure should last.</strong> We extend the life of hardware rather than engineer reasons to replace it.</li>
+          <li><strong>Lean is a feature.</strong> We run a small company deliberately, so customers pay for engineering and support, not overhead.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- Founders -->
+  <section class="band white" id="founders">
+    <div class="section-inner">
+      <div class="center">
+        <p class="eyebrow">Built on experience</p>
+        <h2>The founders.</h2>
+        <p class="lead" style="max-width: 800px; margin-left: auto; margin-right: auto;">
+          Peter Watling and Jonathan Morgan met at Object Matrix, the media storage company
+          Jonathan founded and led. Between them: decades of designing, delivering and supporting
+          storage and media workflows for broadcasters, post-production facilities, sports
+          organisations, archives and content creators.
+        </p>
+      </div>
+
+      <div class="grid-2" style="margin-top: 44px;">
+        <div class="founder pop-panel">
+          <img class="founder-photo" src="/images/peter-watling.jpg" alt="Peter Watling, co-founder of 33Mega, in pop-art style on his bike" width="360" height="450" loading="lazy" />
+          <h3>Peter Watling</h3>
+          <p class="small">Co-founder · Commercial</p>
+          <p>
+            Peter has spent his career getting media technology into the hands of the people who
+            need it — leading EMEA sales at Object Matrix, then at DataCore after its acquisition,
+            where he ran the media operation across the region. Before that he took IP broadcast
+            solutions to the global market with Quicklink and built new business across satellite
+            communications.
+          </p>
+          <p>
+            He built and sold a cloud storage service that became a strategic part of the Object
+            Matrix business — so when he talks about what media customers actually need, it is
+            from having delivered it. Off the clock he is a serious cyclist, and the founder of
+            Velokom, a charity supporting the families of riders seriously injured or lost on the
+            road.
+          </p>
+        </div>
+        <div class="founder pop-panel">
+          <img class="founder-photo" src="/images/jonathan-morgan.jpg" alt="Jonathan Morgan, co-founder of 33Mega, in pop-art comic style" width="360" height="360" loading="lazy" />
+          <h3>Jonathan Morgan</h3>
+          <p class="small">Co-founder · Product &amp; Technology</p>
+          <p>
+            Jonathan is an entrepreneur and technology leader based in Cardiff. He founded and led
+            Object Matrix, the company that pioneered object storage for the media industry, and
+            after its acquisition held SVP Product and Technology responsibility across Object
+            Matrix, Swarm and OpenEBS at Perifery/DataCore.
+          </p>
+          <p>
+            His work spans product strategy, AI, cloud services, object storage and media
+            workflows — and the practical leadership needed to get from architecture diagrams to
+            systems that run for years. The "33 megatons" story is his; the standard it sets
+            belongs to the whole company.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Different -->
+  <section class="band">
+    <div class="section-inner grid-2">
+      <div>
+        <p class="eyebrow">What makes 33Mega different</p>
+        <h2>Claims you can check.</h2>
+        <p>
+          Every storage vendor claims to hate lock-in. We think the claim only counts when you
+          can test it, so here is ours in checkable form:
+        </p>
+        <ul class="check-list">
+          <li>Our platforms are built on Ceph — open-source software proven at CERN, not code we control.</li>
+          <li>The hardware is standard equipment from Dell, bought on the open market and owned by you.</li>
+          <li>Data is stored in open formats and served over standard protocols, including S3.</li>
+          <li>We document how to leave — off-boarding is written down, not discovered.</li>
+        </ul>
+        <p>
+          What we add is everything that makes open source usable as a product: hardware
+          validation, design, build, integration with your workflows, 24×7 monitoring, managed
+          upgrades, and enterprise support with a four-hour software SLA — delivered by people
+          who have spent their careers in media.
+        </p>
+      </div>
+      <div class="pop-panel pink" id="leave">
+        <h3>If you ever leave us</h3>
+        <p><em>This is the section no vendor writes, so we will.</em></p>
+        <p>
+          If 33Mega disappeared tomorrow, or you simply chose to go elsewhere: your hardware is
+          yours — standard and reusable. Your data sits in Ceph, open-source software with a
+          large global community and multiple commercial support providers. Your applications
+          talk to it over standard S3 and file protocols. Off-boarding is documented, not
+          discovered.
+        </p>
+        <p style="margin-bottom: 0;">
+          <strong>We believe making it easy to leave is the best reason to stay.</strong>
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Looking forward -->
+  <section class="band white">
+    <div class="section-inner center">
+      <p class="eyebrow">Looking forward</p>
+      <h2 style="max-width: 820px; margin-left: auto; margin-right: auto;">
+        We're not trying to be the biggest storage company. We're trying to be the most trusted.
+      </h2>
+      <p class="lead" style="max-width: 720px; margin-left: auto; margin-right: auto;">
+        The company media organisations call because the platform works, the support answers,
+        and the exit door is never locked. When infrastructure quietly does its job, people are
+        free to do theirs. That's the idea the company is named after.
+      </p>
+    </div>
+  </section>
+
+  <CTABand />
+</Base>
+
+<style>
+  .origin-art {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 320px;
+  }
+  .origin-art :global(.origin-burst) {
+    position: absolute;
+    width: 400px;
+    height: 400px;
+  }
+  .origin-art :global(.origin-atom) {
+    position: relative;
+    filter: drop-shadow(5px 5px 0 rgba(23, 18, 31, 0.22));
+  }
+  .founder-photo {
+    width: 100%;
+    max-width: 360px;
+    border: var(--border);
+    border-radius: var(--radius);
+    margin-bottom: 18px;
+    object-fit: cover;
+  }
+  @media (max-width: 900px) {
+    .origin-art { min-height: 230px; }
+    .origin-art :global(.origin-burst) { width: 260px; height: 260px; }
+    .origin-art :global(.origin-atom) { width: 180px; height: 180px; }
+  }
+</style>

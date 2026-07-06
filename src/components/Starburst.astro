@@ -1,0 +1,31 @@
+---
+// Pop-art starburst rays, in the style of the sample artwork: gold rays and
+// four-point sparkles. Decorative only.
+interface Props {
+  class?: string;
+  color?: string;
+}
+const { class: className = '', color = '#e8a33d' } = Astro.props;
+const rays = Array.from({ length: 24 }, (_, i) => {
+  const angle = (i * 360) / 24;
+  const len = i % 2 === 0 ? 46 : 34;
+  return { angle, len };
+});
+---
+<svg class={className} viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+  <g stroke={color} stroke-width="4" stroke-linecap="round">
+    {rays.map(({ angle, len }) => (
+      <line
+        x1="100" y1={38 - (len - 34) * 0.4}
+        x2="100" y2={38 + len - 34 + 14}
+        transform={`rotate(${angle} 100 100)`}
+      />
+    ))}
+  </g>
+  <g fill={color}>
+    <path d="M32 40 l4 10 10 4 -10 4 -4 10 -4 -10 -10 -4 10 -4 z" />
+    <path d="M164 138 l3.4 8.6 8.6 3.4 -8.6 3.4 -3.4 8.6 -3.4 -8.6 -8.6 -3.4 8.6 -3.4 z" />
+    <path d="M158 30 l2.8 7.2 7.2 2.8 -7.2 2.8 -2.8 7.2 -2.8 -7.2 -7.2 -2.8 7.2 -2.8 z" />
+    <path d="M40 152 l2.8 7.2 7.2 2.8 -7.2 2.8 -2.8 7.2 -2.8 -7.2 -7.2 -2.8 7.2 -2.8 z" />
+  </g>
+</svg>

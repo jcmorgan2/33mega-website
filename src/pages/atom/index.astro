@@ -1,0 +1,229 @@
+---
+import Base from '../../layouts/Base.astro';
+import AtomMark from '../../components/AtomMark.astro';
+import Starburst from '../../components/Starburst.astro';
+import DiagramPlatform from '../../components/DiagramPlatform.astro';
+import CTABand from '../../components/CTABand.astro';
+---
+<Base
+  title="The Atom | Fully supported file and object storage built on Ceph"
+  description="The Atom is 33Mega's storage platform: unified file and S3 object storage on Ceph and standard Dell hardware, fully managed with a four-hour SLA — built for media."
+>
+  <!-- Hero -->
+  <section class="band halftone-cyan hero">
+    <div class="section-inner grid-2" style="align-items: center;">
+      <div>
+        <p class="eyebrow">The 33Mega platform</p>
+        <h1>The Atom</h1>
+        <p class="lead">
+          File and object storage delivered as a single, fully managed system — built on Ceph
+          and standard Dell hardware, and supported around the clock by the people who built it.
+        </p>
+        <div class="actions">
+          <a class="button primary" href="/contact/">Design my Atom</a>
+          <a class="button ghost" href="#highlights">Technical highlights</a>
+        </div>
+      </div>
+      <div class="hero-art" aria-hidden="true">
+        <Starburst class="hero-burst" color="#e8a33d" />
+        <AtomMark size={250} class="hero-atom" />
+      </div>
+    </div>
+  </section>
+
+  <!-- One platform -->
+  <section class="band white">
+    <div class="section-inner grid-2">
+      <div>
+        <p class="eyebrow">One platform</p>
+        <h2>File and object. One namespace. One team.</h2>
+        <p class="lead">
+          The Atom provides high-performance file storage and standards-compliant S3 object
+          storage from a single system, under one namespace, supported by one team.
+        </p>
+        <p>
+          Editing, archive, content management, cloud integration and AI workloads run against
+          the same platform. Block volumes are available for the infrastructure around your
+          content. No silos to reconcile, no second vendor to chase.
+        </p>
+        <div class="actions">
+          <a class="button cyan" href="/atom/file/">File</a>
+          <a class="button primary" href="/atom/object/">Object</a>
+          <a class="button" href="/atom/block/">Block</a>
+        </div>
+      </div>
+      <div class="pop-panel cream">
+        <h3>Built for performance</h3>
+        <p>
+          NVMe storage accelerates metadata and active workloads, and intelligent data placement
+          sustains throughput for high-bitrate video and restores from archive.
+        </p>
+        <p style="margin-bottom: 0;">
+          Performance scales with the cluster as it grows — a property of the architecture,
+          not a promise.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Open by design -->
+  <section class="band" id="open">
+    <div class="section-inner grid-2">
+      <div class="pop-panel cyan">
+        <h3>Proven where it counts</h3>
+        <p>
+          Ceph stores CERN's scientific data and powers many of the world's largest clouds, with
+          more than 10,000 deployments worldwide. It is one of the most capable storage
+          technologies in existence — flexible, resilient and standards-based.
+        </p>
+        <p style="margin-bottom: 0;">
+          But open source is a platform, not a product. What was missing was a company that
+          packages it, takes responsibility for the result, and understands media workflows.
+          That is 33Mega.
+        </p>
+      </div>
+      <div>
+        <p class="eyebrow">Open by design</p>
+        <h2>No proprietary anything.</h2>
+        <ul class="check-list">
+          <li>Powered by Ceph — open-source software, not code we control.</li>
+          <li>Standard Dell enterprise hardware, bought on the open market, owned by you.</li>
+          <li>Data in open formats, served over standards-compliant S3 and standard file protocols.</li>
+          <li>No proprietary file systems, no closed formats, no single vendor's roadmap.</li>
+          <li>Your data remains readable by open tools for as long as you keep it.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- Architecture -->
+  <section class="band white">
+    <div class="section-inner">
+      <p class="eyebrow">Architecture</p>
+      <h2>Reliable by architecture.</h2>
+      <p class="lead" style="max-width: 800px;">
+        Data is stored in multiple copies or erasure-coded across the cluster. The platform is
+        self-healing: when a drive or server fails, data is rebuilt automatically and operation
+        continues. Hardware failure is an expected event, not an emergency.
+      </p>
+      <DiagramPlatform />
+    </div>
+  </section>
+
+  <!-- Support -->
+  <section class="band" id="support">
+    <div class="section-inner">
+      <div class="center">
+        <p class="eyebrow">Fully managed, fully supported</p>
+        <h2>What support means in practice.</h2>
+        <p class="lead" style="max-width: 780px; margin-left: auto; margin-right: auto;">
+          One number to call, answered by storage engineers rather than a triage script.
+          The commitments are contractual, not aspirational.
+        </p>
+      </div>
+      <div class="grid-4" style="margin-top: 36px;">
+        <div class="pop-panel">
+          <h3>We watch it</h3>
+          <p class="small" style="color: var(--ink);">24×7 software monitoring. We usually see problems before you do.</p>
+        </div>
+        <div class="pop-panel">
+          <h3>We maintain it</h3>
+          <p class="small" style="color: var(--ink);">Upgrades are planned, tested and performed by us — proactively, on your schedule.</p>
+        </div>
+        <div class="pop-panel">
+          <h3>We fix it</h3>
+          <p class="small" style="color: var(--ink);">Four-hour software SLA. Hardware faults handled end to end, with next-business-day replacement.</p>
+        </div>
+        <div class="pop-panel">
+          <h3>We own it</h3>
+          <p class="small" style="color: var(--ink);">One team owns the outcome. You never manage two vendors or referee a support dispute.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Cost + requirements -->
+  <section class="band white">
+    <div class="section-inner grid-2">
+      <div>
+        <p class="eyebrow">Lower cost, explained</p>
+        <h2>Cheaper for structural reasons, not promotional ones.</h2>
+        <p>
+          Standard hardware bought at market prices. Open-source software with no per-terabyte
+          licence. A lean company without enterprise-vendor overhead. You pay for hardware and
+          for support — the two things that actually cost money.
+        </p>
+        <p>
+          We also extend the life of hardware rather than engineer reasons to replace it.
+          Growth is added without disruption or data migration.
+        </p>
+      </div>
+      <div>
+        <p class="eyebrow">Built around your requirements</p>
+        <h2>Sized to the job.</h2>
+        <p>
+          Every deployment is designed around the workflow it serves — capacity from around
+          100 TB to multiple petabytes, performance sized to the job, and growth added without
+          disruption.
+        </p>
+        <p>
+          Tell us about the workflow. We'll design the platform, validate the hardware, build
+          it, integrate it and run it.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Technical highlights -->
+  <section class="band" id="highlights">
+    <div class="section-inner">
+      <p class="eyebrow">Technical highlights</p>
+      <h2>The Atom at a glance.</h2>
+      <table class="spec-table">
+        <tbody>
+          <tr><th>Storage services</th><td>Unified file and S3 object storage under one namespace; block volumes for supporting infrastructure</td></tr>
+          <tr><th>Software</th><td>Ceph open-source storage software — proven at CERN, 10,000+ deployments worldwide</td></tr>
+          <tr><th>Hardware</th><td>Standard Dell enterprise servers with NVMe acceleration, owned by you</td></tr>
+          <tr><th>Scale</th><td>From ~100 TB to multiple petabytes, expanded without disruption or data migration</td></tr>
+          <tr><th>Management</th><td>Fully managed: 24×7 monitoring, managed upgrades and lifecycle management</td></tr>
+          <tr><th>Support</th><td>Four-hour software SLA; next-business-day hardware replacement — contractual</td></tr>
+          <tr><th>Protocols</th><td>Standards-compliant S3 API, SMB and NFS file protocols, RBD block devices</td></tr>
+          <tr><th>Data protection</th><td>Replication or erasure coding, self-healing on drive or node failure</td></tr>
+          <tr><th>Lock-in</th><td>None: no proprietary hardware, software or formats; documented off-boarding</td></tr>
+          <tr><th>Deployment</th><td>On-premises today; hybrid cloud to follow</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <CTABand
+    title="Design an Atom around your workflow."
+    text="Capacity, performance, growth, integrations — tell us what the platform needs to do, and we'll come back with a design and a number."
+    buttonLabel="Start the conversation"
+  />
+</Base>
+
+<style>
+  .hero { border-bottom: var(--border); }
+  .hero-art {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 320px;
+  }
+  .hero-art :global(.hero-burst) {
+    position: absolute;
+    width: 360px;
+    height: 360px;
+  }
+  .hero-art :global(.hero-atom) {
+    position: relative;
+    filter: drop-shadow(5px 5px 0 rgba(23, 18, 31, 0.28));
+  }
+  @media (max-width: 900px) {
+    .hero-art { min-height: 220px; }
+    .hero-art :global(.hero-burst) { width: 240px; height: 240px; }
+    .hero-art :global(.hero-atom) { width: 170px; height: 170px; }
+  }
+</style>

@@ -1,0 +1,65 @@
+---
+// Small three-stage flow diagram used on the file / object / block use-case
+// pages. Same restrained engineering style as DiagramPlatform.
+interface Stage {
+  title: string;
+  lines: string[];
+}
+interface Props {
+  caption: string;
+  stages: [Stage, Stage, Stage];
+  protocol: string;
+}
+const { caption, stages, protocol } = Astro.props;
+const boxW = 250;
+const gap = 65;
+const positions = [20, 20 + boxW + gap, 20 + (boxW + gap) * 2];
+---
+<figure class="diagram">
+  <svg viewBox="0 0 920 190" xmlns="http://www.w3.org/2000/svg" role="img" aria-label={caption}>
+    <defs>
+      <marker id="arr-flow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+        <path d="M0 0 L10 5 L0 10 z" fill="#4a4458" />
+      </marker>
+    </defs>
+    <style>
+      .fbox { fill: #ffffff; stroke: #4a4458; stroke-width: 1.5; }
+      .ft { font-family: 'Space Grotesk', Arial, sans-serif; font-size: 15px; fill: #17121f; font-weight: 700; }
+      .fs { font-family: 'Space Grotesk', Arial, sans-serif; font-size: 12.5px; fill: #5c5570; font-weight: 400; }
+      .fp { font-family: 'Space Grotesk', Arial, sans-serif; font-size: 12px; fill: #4a4458; font-weight: 700; }
+      .fl { stroke: #4a4458; stroke-width: 1.5; fill: none; }
+    </style>
+    {stages.map((stage, i) => (
+      <g>
+        <rect class="fbox" x={positions[i]} y="35" width={boxW} height="120" rx="8" />
+        <text class="ft" x={positions[i] + 18} y="66">{stage.title}</text>
+        {stage.lines.map((line, j) => (
+          <text class="fs" x={positions[i] + 18} y={90 + j * 20}>{line}</text>
+        ))}
+      </g>
+    ))}
+    <path class="fl" d={`M${positions[0] + boxW} 95 H${positions[1] - 4}`} marker-end="url(#arr-flow)" />
+    <path class="fl" d={`M${positions[1] + boxW} 95 H${positions[2] - 4}`} marker-end="url(#arr-flow)" />
+    <text class="fp" x={positions[0] + boxW + gap / 2} y="86" text-anchor="middle">{protocol}</text>
+  </svg>
+  <figcaption>{caption}</figcaption>
+</figure>
+
+<style>
+  .diagram {
+    margin: 0;
+    background: #fff;
+    border: 2px solid var(--diagram-line);
+    border-radius: 10px;
+    padding: 20px 18px 10px;
+    overflow-x: auto;
+  }
+  .diagram svg { min-width: 680px; width: 100%; height: auto; display: block; }
+  .diagram figcaption {
+    font-size: 0.88rem;
+    color: var(--ink-soft);
+    padding: 10px 4px 4px;
+    border-top: 1px solid #e6e2ee;
+    margin-top: 10px;
+  }
+</style>

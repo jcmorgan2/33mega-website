@@ -1,0 +1,133 @@
+---
+// The Atom platform architecture. Deliberately restrained: thin lines, muted
+// colour, engineering-drawing tone — unlike the pop-art marketing graphics.
+---
+<figure class="diagram">
+  <svg viewBox="0 0 920 470" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="diag-platform-title">
+    <title id="diag-platform-title">The Atom platform architecture: media workflows connect over standard protocols to a self-healing Ceph cluster on Dell hardware, managed 24×7 by 33Mega.</title>
+    <defs>
+      <marker id="arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+        <path d="M0 0 L10 5 L0 10 z" fill="#4a4458" />
+      </marker>
+    </defs>
+    <style>
+      .box { fill: #ffffff; stroke: #4a4458; stroke-width: 1.5; rx: 6; }
+      .zone { fill: #f6f4fa; stroke: #8b8598; stroke-width: 1.2; stroke-dasharray: 6 4; }
+      .node { fill: #edeaf4; stroke: #4a4458; stroke-width: 1.5; }
+      .t { font-family: 'Space Grotesk', Arial, sans-serif; font-size: 14px; fill: #17121f; }
+      .t-bold { font-weight: 700; }
+      .t-small { font-size: 12px; fill: #5c5570; }
+      .t-zone { font-size: 12px; font-weight: 700; fill: #8b8598; letter-spacing: 0.08em; }
+      .flow { stroke: #4a4458; stroke-width: 1.5; fill: none; }
+    </style>
+
+    <!-- Clients zone -->
+    <rect class="zone" x="20" y="40" width="200" height="360" rx="8" />
+    <text class="t t-zone" x="40" y="28">MEDIA WORKFLOWS</text>
+    <g>
+      <rect class="box" x="40" y="60" width="160" height="52" rx="6" />
+      <text class="t t-bold" x="52" y="82">Edit suites</text>
+      <text class="t-small t" x="52" y="100">Avid, Premiere, Resolve</text>
+
+      <rect class="box" x="40" y="130" width="160" height="52" rx="6" />
+      <text class="t t-bold" x="52" y="152">Asset management</text>
+      <text class="t-small t" x="52" y="170">MAM / PAM / DAM</text>
+
+      <rect class="box" x="40" y="200" width="160" height="52" rx="6" />
+      <text class="t t-bold" x="52" y="222">Automation</text>
+      <text class="t-small t" x="52" y="240">Transcode, QC, delivery</text>
+
+      <rect class="box" x="40" y="270" width="160" height="52" rx="6" />
+      <text class="t t-bold" x="52" y="292">Cloud &amp; AI</text>
+      <text class="t-small t" x="52" y="310">Distribution, ML pipelines</text>
+
+      <rect class="box" x="40" y="340" width="160" height="52" rx="6" />
+      <text class="t t-bold" x="52" y="362">Infrastructure</text>
+      <text class="t-small t" x="52" y="380">VMs, databases, playout</text>
+    </g>
+
+    <!-- Protocols -->
+    <rect class="zone" x="280" y="40" width="150" height="360" rx="8" />
+    <text class="t t-zone" x="300" y="28">STANDARD PROTOCOLS</text>
+    <g>
+      <rect class="box" x="300" y="95" width="110" height="44" rx="6" />
+      <text class="t t-bold" x="316" y="122">SMB / NFS</text>
+      <rect class="box" x="300" y="205" width="110" height="44" rx="6" />
+      <text class="t t-bold" x="332" y="232">S3</text>
+      <rect class="box" x="300" y="330" width="110" height="44" rx="6" />
+      <text class="t t-bold" x="330" y="357">RBD</text>
+    </g>
+
+    <!-- Flows clients->protocols -->
+    <path class="flow" d="M200 86 H262 V117 H298" marker-end="url(#arr)" />
+    <path class="flow" d="M200 156 H262 V117 H298" marker-end="url(#arr)" />
+    <path class="flow" d="M200 226 H298" marker-end="url(#arr)" />
+    <path class="flow" d="M200 296 H262 V227 H298" marker-end="url(#arr)" />
+    <path class="flow" d="M200 366 H262 V352 H298" marker-end="url(#arr)" />
+
+    <!-- Atom cluster -->
+    <rect class="zone" x="490" y="40" width="240" height="360" rx="8" />
+    <text class="t t-zone" x="510" y="28">THE ATOM · CEPH CLUSTER</text>
+    <g>
+      <rect class="node" x="510" y="62" width="200" height="58" rx="6" />
+      <text class="t t-bold" x="524" y="86">Node 1 · Dell server</text>
+      <text class="t-small t" x="524" y="104">NVMe cache · HDD capacity</text>
+      <rect class="node" x="510" y="130" width="200" height="58" rx="6" />
+      <text class="t t-bold" x="524" y="154">Node 2 · Dell server</text>
+      <text class="t-small t" x="524" y="172">NVMe cache · HDD capacity</text>
+      <rect class="node" x="510" y="198" width="200" height="58" rx="6" />
+      <text class="t t-bold" x="524" y="222">Node 3 · Dell server</text>
+      <text class="t-small t" x="524" y="240">NVMe cache · HDD capacity</text>
+      <rect class="node" x="510" y="266" width="200" height="40" rx="6" stroke-dasharray="5 4" />
+      <text class="t t-small" x="524" y="291">Node N — scale without disruption</text>
+
+      <rect class="box" x="510" y="322" width="200" height="62" rx="6" />
+      <text class="t t-bold" x="524" y="345">Data protection</text>
+      <text class="t-small t" x="524" y="363">Replication or erasure coding</text>
+      <text class="t-small t" x="524" y="378">Self-healing on failure</text>
+    </g>
+
+    <path class="flow" d="M410 117 H455 V170 H488" marker-end="url(#arr)" />
+    <path class="flow" d="M410 227 H488" marker-end="url(#arr)" />
+    <path class="flow" d="M410 352 H455 V285 H488" marker-end="url(#arr)" />
+
+    <!-- Managed by -->
+    <rect class="zone" x="782" y="40" width="126" height="360" rx="8" />
+    <text class="t t-zone" x="792" y="28">MANAGED BY 33MEGA</text>
+    <g>
+      <rect class="box" x="792" y="70" width="106" height="60" rx="6" />
+      <text class="t t-small t-bold" x="802" y="94">24×7</text>
+      <text class="t-small t" x="802" y="110">monitoring</text>
+      <rect class="box" x="792" y="150" width="106" height="60" rx="6" />
+      <text class="t t-small t-bold" x="802" y="174">Managed</text>
+      <text class="t-small t" x="802" y="190">upgrades</text>
+      <rect class="box" x="792" y="230" width="106" height="60" rx="6" />
+      <text class="t t-small t-bold" x="802" y="254">4-hour</text>
+      <text class="t-small t" x="802" y="270">software SLA</text>
+      <rect class="box" x="792" y="310" width="106" height="60" rx="6" />
+      <text class="t t-small t-bold" x="802" y="334">NBD</text>
+      <text class="t-small t" x="802" y="350">hardware swap</text>
+    </g>
+    <path class="flow" d="M730 220 H780" marker-end="url(#arr)" stroke-dasharray="5 4" />
+  </svg>
+  <figcaption>The Atom: one namespace, standard protocols, self-healing Ceph cluster on standard Dell hardware — monitored and managed around the clock.</figcaption>
+</figure>
+
+<style>
+  .diagram {
+    margin: 0;
+    background: #fff;
+    border: 2px solid var(--diagram-line);
+    border-radius: 10px;
+    padding: 26px 22px 14px;
+    overflow-x: auto;
+  }
+  .diagram svg { min-width: 720px; width: 100%; height: auto; display: block; }
+  .diagram figcaption {
+    font-size: 0.88rem;
+    color: var(--ink-soft);
+    padding: 12px 4px 4px;
+    border-top: 1px solid #e6e2ee;
+    margin-top: 14px;
+  }
+</style>

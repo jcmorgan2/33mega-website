@@ -1,0 +1,51 @@
+---
+import Base from '../../layouts/Base.astro';
+import { getCollection } from 'astro:content';
+
+const posts = (await getCollection('news')).sort(
+  (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()
+);
+---
+<Base
+  title="News | 33Mega"
+  description="News and writing from 33Mega: product updates, engineering notes and company announcements."
+>
+  <section class="band halftone-cyan tight">
+    <div class="section-inner">
+      <p class="eyebrow">News &amp; writing</p>
+      <h1>What we're building, in the open.</h1>
+      <p class="lead" style="max-width: 720px;">
+        Product updates, engineering notes and the occasional strong opinion about storage.
+        Also available as an <a href="/rss.xml">RSS feed</a>.
+      </p>
+    </div>
+  </section>
+
+  <section class="band">
+    <div class="section-inner grid-3">
+      {posts.map((post) => (
+        <a class="pop-panel news-card" href={`/news/${post.id}/`}>
+          <p class="eyebrow light">{post.data.tag}</p>
+          <h3>{post.data.title}</h3>
+          <p>{post.data.description}</p>
+          <p class="small">
+            {post.data.author} · {post.data.pubDate.toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' })}
+          </p>
+        </a>
+      ))}
+    </div>
+  </section>
+</Base>
+
+<style>
+  .news-card {
+    display: block;
+    text-decoration: none;
+    color: var(--ink);
+    transition: transform 0.12s ease, box-shadow 0.12s ease;
+  }
+  .news-card:hover {
+    transform: translate(3px, 3px);
+    box-shadow: 4px 4px 0 var(--ink);
+  }
+</style>

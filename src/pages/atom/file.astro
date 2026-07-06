@@ -1,0 +1,100 @@
+---
+import Base from '../../layouts/Base.astro';
+import DiagramFlow from '../../components/DiagramFlow.astro';
+import CTABand from '../../components/CTABand.astro';
+---
+<Base
+  title="File storage for media | The Atom by 33Mega"
+  description="High-performance shared file storage for editing, finishing and media workspaces — SMB and NFS on a self-healing Ceph cluster, NVMe-accelerated, fully supported."
+>
+  <section class="band halftone-cyan">
+    <div class="section-inner">
+      <p class="eyebrow">The Atom · File</p>
+      <h1>File storage that keeps up with the edit.</h1>
+      <p class="lead" style="max-width: 820px;">
+        Shared file storage for editing, finishing and collaborative media work — served over
+        SMB and NFS, accelerated by NVMe, and sitting on the same self-healing cluster as your
+        archive.
+      </p>
+      <div class="actions">
+        <a class="button primary" href="/contact/">Talk through a file workflow</a>
+        <a class="button ghost" href="/atom/">Platform overview</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="band white">
+    <div class="section-inner grid-2">
+      <div>
+        <p class="eyebrow">Where it fits</p>
+        <h2>Built for high-bitrate, shared work.</h2>
+        <p>
+          Media file workloads are unforgiving: multiple editors pulling high-bitrate streams,
+          render farms hammering the same directories, finishing suites that cannot drop frames.
+          The Atom's file service is designed for exactly that profile.
+        </p>
+        <p>
+          NVMe accelerates metadata and active projects, while intelligent data placement keeps
+          throughput steady as more of the team piles in. Because file and object share one
+          namespace, finished work moves to the archive tier without leaving the platform.
+        </p>
+      </div>
+      <div class="pop-panel cyan">
+        <h3>Typical file use cases</h3>
+        <ul class="check-list">
+          <li>Shared editing and finishing workspaces over SMB and NFS.</li>
+          <li>Project and asset shares for post-production teams.</li>
+          <li>Render, transcode and QC farms working against shared storage.</li>
+          <li>Nearline parking for active projects between sessions.</li>
+          <li>Watch folders feeding automation and delivery pipelines.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="band">
+    <div class="section-inner">
+      <p class="eyebrow">How it flows</p>
+      <h2>From suite to storage, without drama.</h2>
+      <DiagramFlow
+        protocol="SMB / NFS"
+        caption="Edit suites and render farms mount The Atom over standard file protocols; data lands on a self-healing Ceph cluster with NVMe acceleration."
+        stages={[
+          { title: 'Clients', lines: ['Edit and finishing suites', 'Render and transcode farms', 'Shared team workspaces'] },
+          { title: 'File service', lines: ['SMB and NFS access', 'One namespace with object', 'NVMe-accelerated metadata'] },
+          { title: 'The Atom cluster', lines: ['Standard Dell hardware', 'Replication or erasure coding', 'Self-healing, monitored 24×7'] },
+        ]}
+      />
+    </div>
+  </section>
+
+  <section class="band white">
+    <div class="section-inner grid-2">
+      <div class="pop-panel cream">
+        <h3>Honest about fit</h3>
+        <p>
+          The Atom's file tier is built for shared media work: editing, nearline, project
+          storage, automation. If your workflow needs an extreme low-latency SAN for uncompressed
+          4K finishing, we will tell you — and design the Atom to sit behind it as the platform
+          everything else runs on. That is what turnkey means: the right design, not the biggest
+          invoice.
+        </p>
+      </div>
+      <div>
+        <p class="eyebrow">Supported like everything else</p>
+        <h2>Same cluster. Same team. Same SLA.</h2>
+        <ul class="check-list">
+          <li>24×7 monitoring with a four-hour software SLA.</li>
+          <li>Upgrades planned, tested and performed by 33Mega engineers.</li>
+          <li>Capacity grows without disruption or data migration.</li>
+          <li>Data in open formats — never held hostage by a file system.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <CTABand
+    title="Tell us about your file workflow."
+    text="Editors, bitrates, peak concurrency, growth — we'll size the file tier honestly and show you the design before you spend a penny."
+  />
+</Base>
