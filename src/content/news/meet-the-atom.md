@@ -26,7 +26,7 @@ Every Atom includes management and enterprise support:
 - Next-business-day hardware replacement
 - End-to-end ownership by a single team
 
-One number to call, answered by storage engineers rather than a triage script. We monitor the platform continuously and usually see problems before you do.
+One number to call, answered by media workflow experts rather than a triage script. We monitor the platform continuously and usually see problems before you do.
 
 ## Built for media
 

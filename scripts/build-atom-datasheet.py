@@ -366,7 +366,7 @@ def build():
             "support — the two things that actually cost money.", body),
         Paragraph("What support means in practice", h2),
         Paragraph(
-            "One number to call, answered by storage engineers rather than a triage script. We "
+            "One number to call, answered by media workflow experts rather than a triage script. We "
             "monitor the platform continuously and usually see problems before you do. Upgrades "
             "are planned, tested and performed by us. Hardware faults are handled end to end — "
             "we coordinate replacement and reintegration, so you never manage two vendors.", body),
