@@ -19,7 +19,7 @@ export const slides: HeroSlide[] = [
       'The Atom is a turnkey storage platform for Media workflows; designed, delivered and supported so you can just use it.',
     ctas: [
       { label: 'Explore The Atom', href: '/atom/', style: 'primary' },
-      { label: 'Talk to an engineer', href: '/contact/', style: 'ghost' },
+      { label: 'Talk to an Expert', href: '/contact/', style: 'ghost' },
     ],
     art: 'atom',
     burst: '#e8a33d',
