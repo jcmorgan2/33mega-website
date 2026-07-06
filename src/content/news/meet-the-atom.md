@@ -1,12 +1,12 @@
 ---
-title: "Meet The Atom: file and object storage as one fully managed system"
+title: "Meet The Atom: file and object storage for media workflows, as one fully managed system"
 description: "Our first platform brings together high-performance file storage and standards-compliant S3 object storage on Ceph and standard Dell hardware — designed, built and supported by one team."
 pubDate: 2026-06-29
 author: "33Mega"
 tag: "Product"
 ---
 
-The Atom is 33Mega's first platform: file and object storage delivered as a single, fully managed system, built on Ceph and standard Dell hardware.
+The Atom is 33Mega's first platform: file and object storage for media workflows, delivered as a single, fully managed system, built on Ceph and standard Dell hardware.
 
 Enterprise storage has become expensive, complex and restrictive. The Atom is our answer: no proprietary hardware, no capacity licensing, no forced refresh cycles — a supported product with the economics and openness of open source.
 

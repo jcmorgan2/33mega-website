@@ -44,8 +44,9 @@ const posts = (await getCollection('news'))
         <p class="eyebrow">The product</p>
         <h2>Meet <span class="kicker">The Atom</span>.</h2>
         <p class="lead">
-          File and object storage delivered as a single, fully managed system — built on Ceph
-          and standard Dell hardware, designed around your workflow and supported by one team.
+          File and object storage for media workflows, delivered as a single, fully managed
+          system — built on Ceph and standard Dell hardware, designed around your workflow and
+          supported by one team.
         </p>
         <p>
           Enterprise storage has become expensive, complex and restrictive. The Atom is our
@@ -64,6 +65,7 @@ const posts = (await getCollection('news'))
           <li>Hardware validated, built and integrated by us; owned by you.</li>
           <li>24×7 monitoring — we usually see problems before you do.</li>
           <li>Upgrades planned, tested and performed by our engineers.</li>
+          <li>The Custom Solution Management Interface makes servicing and monitoring the solution a breeze.</li>
           <li>One number to call. One team owns the outcome, end to end.</li>
         </ul>
       </div>
@@ -81,7 +83,7 @@ const posts = (await getCollection('news'))
       <div class="grid-3" style="margin-top: 38px;">
         <div class="pop-panel cyan">
           <h3>File storage</h3>
-          <p>High-performance shared file storage for editing, finishing and shared media workspaces — over SMB and NFS, accelerated by NVMe.</p>
+          <p>High-performance shared file storage for editing, finishing and shared media workspaces — over SMB and NFS with full POSIX support, accelerated by NVMe.</p>
           <a class="button cyan" href="/atom/file/">File use cases</a>
         </div>
         <div class="pop-panel pink">
@@ -109,6 +111,16 @@ const posts = (await getCollection('news'))
         expected event, not an emergency.
       </p>
       <DiagramPlatform />
+      <div class="mgmt-note">
+        <h3>Custom Management Interface, makes handling Ceph a breeze.</h3>
+        <p style="max-width: 800px; margin-bottom: 0;">
+          Our custom management interface makes handling the Ceph cluster a breeze. Need to
+          upgrade? Need to see where a hardware error lies? Need to profile performance?
+          Everything is available at a touch of a button. Of course — you may never want to see
+          any of this, leaving the cluster management to our engineers, or you may wish to hook
+          event notifications into your monitoring systems. Everything is possible.
+        </p>
+      </div>
     </div>
   </section>
 
@@ -189,6 +201,7 @@ const posts = (await getCollection('news'))
 </Base>
 
 <style>
+  .mgmt-note { margin-top: 36px; }
   .news-head {
     display: flex;
     align-items: center;

@@ -5,7 +5,7 @@ import CTABand from '../../components/CTABand.astro';
 ---
 <Base
   title="File storage for media | The Atom by 33Mega"
-  description="High-performance shared file storage for editing, finishing and media workspaces — SMB and NFS on a self-healing Ceph cluster, NVMe-accelerated, fully supported."
+  description="High-performance shared file storage for editing, finishing and media workspaces — SMB, NFS and POSIX on a self-healing Ceph cluster, NVMe-accelerated, fully supported."
 >
   <section class="band halftone-cyan">
     <div class="section-inner">
@@ -13,7 +13,7 @@ import CTABand from '../../components/CTABand.astro';
       <h1>File storage that keeps up with the edit.</h1>
       <p class="lead" style="max-width: 820px;">
         Shared file storage for editing, finishing and collaborative media work — served over
-        SMB and NFS, accelerated by NVMe, and sitting on the same self-healing cluster as your
+        SMB and NFS with full POSIX support, accelerated by NVMe, and sitting on the same self-healing cluster as your
         archive.
       </p>
       <div class="actions">
@@ -42,7 +42,7 @@ import CTABand from '../../components/CTABand.astro';
       <div class="pop-panel cyan">
         <h3>Typical file use cases</h3>
         <ul class="check-list">
-          <li>Shared editing and finishing workspaces over SMB and NFS.</li>
+          <li>Shared editing and finishing workspaces over SMB and NFS, with full POSIX support.</li>
           <li>Project and asset shares for post-production teams.</li>
           <li>Render, transcode and QC farms working against shared storage.</li>
           <li>Nearline parking for active projects between sessions.</li>
@@ -57,11 +57,11 @@ import CTABand from '../../components/CTABand.astro';
       <p class="eyebrow">How it flows</p>
       <h2>From suite to storage, without drama.</h2>
       <DiagramFlow
-        protocol="SMB / NFS"
+        protocol="SMB / NFS / POSIX"
         caption="Edit suites and render farms mount The Atom over standard file protocols; data lands on a self-healing Ceph cluster with NVMe acceleration."
         stages={[
           { title: 'Clients', lines: ['Edit and finishing suites', 'Render and transcode farms', 'Shared team workspaces'] },
-          { title: 'File service', lines: ['SMB and NFS access', 'One namespace with object', 'NVMe-accelerated metadata'] },
+          { title: 'File service', lines: ['SMB, NFS and POSIX access', 'One namespace with object', 'NVMe-accelerated metadata'] },
           { title: 'The Atom cluster', lines: ['Standard Dell hardware', 'Replication or erasure coding', 'Self-healing, monitored 24×7'] },
         ]}
       />

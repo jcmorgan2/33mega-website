@@ -13,10 +13,10 @@ export interface HeroSlide {
 
 export const slides: HeroSlide[] = [
   {
-    eyebrow: 'The Atom — our first platform',
-    title: 'File and object storage. One system. Fully supported.',
+    eyebrow: 'The Atom',
+    title: 'File and object storage for Media Workflows. One system. Fully supported.',
     text:
-      'The Atom is a turnkey storage platform built on Ceph and standard Dell hardware, designed, delivered and supported end to end by people who have spent their careers in media.',
+      'The Atom is a turnkey storage platform for Media workflows; designed, delivered and supported so you can just use it.',
     ctas: [
       { label: 'Explore The Atom', href: '/atom/', style: 'primary' },
       { label: 'Talk to an engineer', href: '/contact/', style: 'ghost' },
