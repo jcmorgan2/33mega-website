@@ -286,7 +286,7 @@ def build():
     story.append(Paragraph(
         "The Atom is 33Mega's storage platform: file and object storage for media workflows, "
         "delivered as a single, fully managed system, built on Ceph and standard Dell hardware. "
-        "No proprietary hardware, no capacity licensing, no forced refresh cycles — a supported "
+        "No proprietary hardware, no proprietary software licences, no forced refresh cycles — a supported "
         "product with the economics and openness of open source.", lead))
     story.append(Spacer(1, 3 * mm))
 
@@ -361,7 +361,7 @@ def build():
         Paragraph("Lower cost, explained", h2),
         Paragraph(
             "The Atom costs less for structural reasons, not promotional ones: standard hardware "
-            "bought at market prices, open-source software with no per-terabyte licence, and a "
+            "bought at market prices, open-source software with no proprietary licence, and a "
             "lean company without enterprise-vendor overhead. You pay for hardware and for "
             "support — the two things that actually cost money.", body),
         Paragraph("What support means in practice", h2),

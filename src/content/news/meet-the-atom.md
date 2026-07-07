@@ -8,7 +8,7 @@ tag: "Product"
 
 The Atom is 33Mega's first platform: file and object storage for media workflows, delivered as a single, fully managed system, built on Ceph and standard Dell hardware.
 
-Enterprise storage has become expensive, complex and restrictive. The Atom is our answer: no proprietary hardware, no capacity licensing, no forced refresh cycles — a supported product with the economics and openness of open source.
+Enterprise storage has become expensive, complex and restrictive. The Atom is our answer: no proprietary hardware, no proprietary software licences, no forced refresh cycles — a supported product with the economics and openness of open source.
 
 ## One platform, one namespace, one team
 
