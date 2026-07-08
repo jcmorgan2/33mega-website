@@ -1,5 +1,10 @@
 ---
 import Base from '../layouts/Base.astro';
+
+// Google reCAPTCHA v2 ("I'm not a robot") site key. This value is public and is
+// meant to appear in the page. Paste the site key from the reCAPTCHA admin
+// console here; while it is empty the form falls back to the honeypot only.
+const RECAPTCHA_SITE_KEY = '';
 ---
 <Base
   title="Contact 33Mega | Talk to an Expert"
@@ -53,6 +58,12 @@ import Base from '../layouts/Base.astro';
           Message
           <textarea name="message" rows="5" required placeholder="Tell us about the workflow: rough capacity, what connects to it, what's driving the change…"></textarea>
         </label>
+        {RECAPTCHA_SITE_KEY && (
+          <div class="recaptcha-wrap">
+            <div class="g-recaptcha" data-sitekey={RECAPTCHA_SITE_KEY}></div>
+            <p id="recaptcha-warning" class="small recaptcha-warning">Please confirm you&rsquo;re not a robot.</p>
+          </div>
+        )}
         <button class="button primary" type="submit">Send message</button>
         <p class="small" style="margin: 14px 0 0;">
           Sends straight to our inbox. Prefer to write directly?
@@ -77,9 +88,31 @@ import Base from '../layouts/Base.astro';
       </div>
     </div>
   </section>
+  {RECAPTCHA_SITE_KEY && (
+    <Fragment>
+      <script is:inline src="https://www.google.com/recaptcha/api.js" async defer></script>
+      <script is:inline>
+        document.querySelector('.contact-form')?.addEventListener('submit', function (e) {
+          if (typeof grecaptcha === 'undefined') return;
+          if (!grecaptcha.getResponse()) {
+            e.preventDefault();
+            var warn = document.getElementById('recaptcha-warning');
+            if (warn) warn.style.display = 'block';
+            return;
+          }
+          // reCAPTCHA is a client-side gate here; don't post the token to Formsubmit.
+          this.querySelectorAll('textarea[name="g-recaptcha-response"]').forEach(function (t) {
+            t.removeAttribute('name');
+          });
+        });
+      </script>
+    </Fragment>
+  )}
 </Base>
 
 <style>
+  .recaptcha-wrap { margin-bottom: 18px; }
+  .recaptcha-warning { display: none; margin: 8px 0 0; color: var(--magenta-deep); font-weight: 700; }
   /* Honeypot — hidden from people, catches bots that fill every field. */
   .contact-form .honeypot {
     position: absolute;
