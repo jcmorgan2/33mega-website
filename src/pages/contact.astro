@@ -19,7 +19,12 @@ import Base from '../layouts/Base.astro';
 
   <section class="band white">
     <div class="section-inner grid-2">
-      <form class="pop-panel contact-form" action="mailto:33@33mega.cloud" method="post" enctype="text/plain">
+      <form class="pop-panel contact-form" action="https://formsubmit.co/33@33mega.cloud" method="POST">
+        <input type="hidden" name="_subject" value="New enquiry from 33mega.cloud" />
+        <input type="hidden" name="_template" value="table" />
+        <input type="hidden" name="_captcha" value="false" />
+        <input type="hidden" name="_next" value="https://33mega.cloud/contact/thanks/" />
+        <input type="text" name="_honey" class="honeypot" tabindex="-1" autocomplete="off" aria-hidden="true" />
         <h3 class="mt-0">Send us a message</h3>
         <label>
           Name
@@ -50,7 +55,7 @@ import Base from '../layouts/Base.astro';
         </label>
         <button class="button primary" type="submit">Send message</button>
         <p class="small" style="margin: 14px 0 0;">
-          This opens your email client, pre-addressed to us. Prefer to write directly?
+          Sends straight to our inbox. Prefer to write directly?
           <a href="mailto:33@33mega.cloud">33@33mega.cloud</a>
         </p>
       </form>
@@ -75,6 +80,14 @@ import Base from '../layouts/Base.astro';
 </Base>
 
 <style>
+  /* Honeypot — hidden from people, catches bots that fill every field. */
+  .contact-form .honeypot {
+    position: absolute;
+    left: -9999px;
+    width: 1px;
+    height: 1px;
+    opacity: 0;
+  }
   .contact-form label {
     display: block;
     font-weight: 700;
