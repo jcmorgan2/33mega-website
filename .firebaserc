@@ -1,5 +1,7 @@
 {
   "projects": {
-    "default": "mega33-preview"
+    "default": "mega33-preview",
+    "preview": "mega33-preview",
+    "production": "mega33-cloud"
   }
 }

@@ -44,4 +44,31 @@ Drop a markdown file into `src/content/news/` with `title`, `description`, `pubD
 
 ## Deployment
 
-The site builds to static files in `dist/` and can be served from any static host (the previous site ran on Google Cloud Run; a simple nginx or bucket deployment works too).
+The site builds to static files in `dist/` and is hosted on **Firebase Hosting**.
+
+| Firebase project | Alias | URL | Purpose |
+|------------------|-------|-----|---------|
+| `mega33-cloud` | `production` | https://mega33-cloud.web.app → `33mega.cloud` | Live site |
+| `mega33-preview` | `preview` (default) | https://mega33-preview.web.app | Preview channels |
+
+### Deploy to production
+
+```sh
+npm run build
+firebase deploy --only hosting --project production
+```
+
+### Deploy a shareable preview (no effect on live)
+
+```sh
+npm run build
+firebase hosting:channel:deploy preview --project preview
+```
+
+### Custom domain / DNS (IONOS)
+
+`33mega.cloud` and `www.33mega.cloud` are pointed at the `mega33-cloud` Firebase
+Hosting site. Add the domains under **Firebase console → Hosting → Add custom
+domain** and use the exact A / TXT records Firebase generates. DNS is managed at
+IONOS. Do **not** change the IONOS MX, SPF, DKIM, DMARC or autodiscover records —
+email hosting stays with IONOS.
