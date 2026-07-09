@@ -52,7 +52,7 @@ in the 33Mega pop-art brand and voice.
 | Build pipeline | GitHub Actions | `astro build` + `firebase deploy` on merge to `main`; preview channel per PR | £0 (free tier) |
 | Hosting + previews | Firebase Hosting | Live site (`mega33-cloud`) + per-draft preview channels | £0 |
 | Repo | GitHub (`jcmorgan2/33mega-website`) | Source of truth for code *and* content | £0 |
-| AI provider | Anthropic (Claude) API | Draft copy + on-brand SVG graphics — called server-side only | usage-based, small |
+| AI provider | OpenAI API | Draft copy + on-brand SVG graphics — called server-side only | usage-based, small |
 
 The admin web app is a single Cloud Run service that serves both the browser UI
 and its own JSON API (same origin, no CORS). It shares the same validation and
@@ -79,7 +79,7 @@ GitHub libraries the pipeline is built on.
 A title + body editor with an optional **featured image** (two routes):
 1. **Upload a photo** → the backend resizes (long edge ≤ 1600px), re-encodes to
    WebP and strips EXIF before committing under `public/media/uploads/YYYY/MM/`.
-2. **AI-drafted graphic** → Claude generates an on-brand pop-art **SVG** (atom
+2. **AI-drafted graphic** → OpenAI generates an on-brand pop-art **SVG** (atom
    palette, halftone, starburst) as the featured image.
 
 AI assist can **draft the whole post** (title, description, body, tag) from a
@@ -146,7 +146,7 @@ GET  /api/slides                 → current extra slides (for the remove UI)
 - AI output is a draft only; nothing reaches live without preview + explicit
   Publish.
 - GitHub token scoped to this repo; secrets (`ADMIN_USERS`, `JWT_SECRET`,
-  `GITHUB_TOKEN`, `ANTHROPIC_API_KEY`) in Secret Manager, never in the repo.
+  `GITHUB_TOKEN`, `OPENAI_API_KEY`) in Secret Manager, never in the repo.
 - Core hero slides are structurally unremovable through the tool.
 
 ## 9. Layout note (vs IntroTeach)

@@ -1,10 +1,10 @@
 /**
- * AI assist via the Claude (Anthropic) API — draft news/slide copy and generate
- * an on-brand pop-art SVG graphic. Server-side only (the API key never reaches
- * the browser). Uses fetch directly against POST /v1/messages (no SDK).
+ * AI assist via the OpenAI API — draft news/slide copy and generate an on-brand
+ * pop-art SVG graphic. Server-side only (the API key never reaches the browser).
+ * Uses fetch directly against the Chat Completions endpoint (no SDK).
  */
-const ANTHROPIC = 'https://api.anthropic.com/v1/messages';
-const MODEL = process.env.ANTHROPIC_MODEL || 'claude-opus-4-8';
+const OPENAI = 'https://api.openai.com/v1/chat/completions';
+const MODEL = process.env.OPENAI_MODEL || 'gpt-4o-mini';
 
 const BRAND = {
   voice:
@@ -18,34 +18,30 @@ const BRAND = {
 };
 
 function key() {
-  const k = process.env.ANTHROPIC_API_KEY;
-  if (!k) throw new Error('ANTHROPIC_API_KEY not set');
+  const k = process.env.OPENAI_API_KEY;
+  if (!k) throw new Error('OPENAI_API_KEY not set');
   return k;
 }
 
-/** One Claude message turn. Returns the concatenated text output. */
-async function claude(system, user, { maxTokens = 2000 } = {}) {
-  const res = await fetch(ANTHROPIC, {
+/** One chat turn. Returns the message text. `json:true` requests a JSON object. */
+async function chat(system, user, { json = false, maxTokens = 2000 } = {}) {
+  const res = await fetch(OPENAI, {
     method: 'POST',
-    headers: {
-      'x-api-key': key(),
-      'anthropic-version': '2023-06-01',
-      'content-type': 'application/json',
-    },
+    headers: { Authorization: `Bearer ${key()}`, 'Content-Type': 'application/json' },
     body: JSON.stringify({
       model: MODEL,
       max_tokens: maxTokens,
-      system,
-      messages: [{ role: 'user', content: user }],
+      temperature: 0.7,
+      messages: [
+        { role: 'system', content: system },
+        { role: 'user', content: user },
+      ],
+      ...(json ? { response_format: { type: 'json_object' } } : {}),
     }),
   });
-  if (!res.ok) throw new Error(`Claude ${res.status}: ${(await res.text()).slice(0, 300)}`);
+  if (!res.ok) throw new Error(`OpenAI ${res.status}: ${(await res.text()).slice(0, 300)}`);
   const data = await res.json();
-  return (data.content || [])
-    .filter((b) => b.type === 'text')
-    .map((b) => b.text)
-    .join('')
-    .trim();
+  return (data.choices?.[0]?.message?.content || '').trim();
 }
 
 /** Pull a JSON object out of a model reply, tolerating stray prose or ``` fences. */
@@ -74,8 +70,8 @@ export async function draftContent(type, prompt) {
   const system =
     `You write website content for ${BRAND.voice}\n` +
     `Return ONLY JSON matching this shape: ${shapes[type]}. ${guidance[type]} ` +
-    `Use British English. Do not include markdown code fences around the JSON.`;
-  return parseJSON(await claude(system, `Draft a ${type} about: ${prompt}`));
+    `Use British English.`;
+  return parseJSON(await chat(system, `Draft a ${type} about: ${prompt}`, { json: true }));
 }
 
 /**
@@ -91,7 +87,7 @@ export async function generateGraphic(headline, extra = '') {
     `halftone dots, gold #e8a33d starburst rays, thick #17121f outlines, and the cyan→violet→magenta ` +
     `gradient (#2bd4ff → #9d7bff → #f0439c). Include the headline text prominently in a heavy sans-serif. ` +
     `Keep it clean and legible; no photos, no external references, no fonts beyond generic sans-serif.`;
-  const svg = await claude(
+  const svg = await chat(
     system,
     `Headline to feature: "${headline}".${extra ? ` Context: ${extra}.` : ''}`,
     { maxTokens: 4000 }

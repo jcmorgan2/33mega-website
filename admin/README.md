@@ -13,8 +13,8 @@ cd admin
 npm install
 # one-time: generate admin credentials + JWT secret into secrets/
 node scripts/setup-credentials.mjs jonathan@33mega.cloud peter@33mega.cloud
-# run (loads secrets/ + needs GITHUB_TOKEN + ANTHROPIC_API_KEY for full function)
-GITHUB_TOKEN=ghp_xxx ANTHROPIC_API_KEY=sk-ant-xxx npm run dev
+# run (loads secrets/ + needs GITHUB_TOKEN + OPENAI_API_KEY for full function)
+GITHUB_TOKEN=ghp_xxx OPENAI_API_KEY=sk-xxx npm run dev
 ```
 
 Open `http://localhost:8080`. `secrets/` is git-ignored.
@@ -26,9 +26,9 @@ Open `http://localhost:8080`. `secrets/` is git-ignored.
 | `ADMIN_USERS` | JSON `{ "email": "scrypt$…" }` — from Secret Manager (or `secrets/admin-users.json` locally) |
 | `JWT_SECRET` | random 32-byte hex, signs session JWTs |
 | `GITHUB_TOKEN` | fine-grained PAT scoped to `jcmorgan2/33mega-website` (Contents + Pull requests: read/write) |
-| `ANTHROPIC_API_KEY` | Claude API key for AI assist (draft copy + SVG graphics) |
+| `OPENAI_API_KEY` | OpenAI API key for AI assist (draft copy + SVG graphics) |
 | `GITHUB_REPO` | defaults to `jcmorgan2/33mega-website` |
-| `ANTHROPIC_MODEL` | optional, defaults to `claude-opus-4-8` |
+| `OPENAI_MODEL` | optional, defaults to `gpt-4o-mini` |
 
 ## Deploy to Cloud Run
 
@@ -43,12 +43,12 @@ REGION=europe-west1
 gcloud secrets create admin-users     --project $PROJECT --data-file=admin/secrets/admin-users.json
 printf '%s' "$(openssl rand -hex 32)" | gcloud secrets create jwt-secret --project $PROJECT --data-file=-
 printf '%s' "$GITHUB_TOKEN"      | gcloud secrets create github-token     --project $PROJECT --data-file=-
-printf '%s' "$ANTHROPIC_API_KEY" | gcloud secrets create anthropic-key    --project $PROJECT --data-file=-
+printf '%s' "$OPENAI_API_KEY" | gcloud secrets create openai-key       --project $PROJECT --data-file=-
 
 # 2. Build + deploy from source (Cloud Build)
 gcloud run deploy mega33-admin \
   --project $PROJECT --region $REGION --source admin --allow-unauthenticated --port 8080 \
-  --set-secrets ADMIN_USERS=admin-users:latest,JWT_SECRET=jwt-secret:latest,GITHUB_TOKEN=github-token:latest,ANTHROPIC_API_KEY=anthropic-key:latest
+  --set-secrets ADMIN_USERS=admin-users:latest,JWT_SECRET=jwt-secret:latest,GITHUB_TOKEN=github-token:latest,OPENAI_API_KEY=openai-key:latest
 ```
 
 To rotate an admin password, re-run `setup-credentials.mjs`, then

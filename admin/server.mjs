@@ -4,7 +4,7 @@
  * email+password / JWT auth except /api/login.
  *
  * Env: ADMIN_USERS (JSON of email→scrypt hash), JWT_SECRET, GITHUB_TOKEN,
- *      GITHUB_REPO, ANTHROPIC_API_KEY (assist), optional ANTHROPIC_MODEL.
+ *      GITHUB_REPO, OPENAI_API_KEY (assist), optional OPENAI_MODEL.
  */
 import http from 'node:http';
 import fs from 'node:fs';
