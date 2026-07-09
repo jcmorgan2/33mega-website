@@ -1,3 +1,15 @@
 {
-  "slides": []
+  "slides": [
+    {
+      "id": "join-us-at-ibc-expo-amsterdam-mrdki8lw",
+      "eyebrow": "Events",
+      "title": "Join Us at IBC Expo Amsterdam",
+      "text": "We're excited to announce our presence at the IBC Expo. Visit us at booth 6.24 to explore our innovative storage solutions and discuss your needs.",
+      "ctaLabel": "Learn More",
+      "ctaHref": "/events/",
+      "art": "spark",
+      "burst": "#9d7bff",
+      "expires": "2026-07-16"
+    }
+  ]
 }
