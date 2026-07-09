@@ -32,11 +32,14 @@ Open `http://localhost:8080`. `secrets/` is git-ignored.
 
 ## Deploy to Cloud Run
 
-Deployed to the `mega33-cloud` GCP project. Secrets live in Secret Manager and
+**Live:** https://mega33-admin-618002377543.europe-west1.run.app — deployed to the
+`electric-spark-468812-i6` GCP project (chosen because `mega33-cloud` couldn't be
+linked to billing: the account is at its 5-project quota; relocate to
+`mega33-cloud` once a quota increase clears). Secrets live in Secret Manager and
 are injected as env vars. From the repo root:
 
 ```sh
-PROJECT=mega33-cloud
+PROJECT=electric-spark-468812-i6
 REGION=europe-west1
 
 # 1. Create secrets (once) — see scripts/setup-credentials.mjs output for values
