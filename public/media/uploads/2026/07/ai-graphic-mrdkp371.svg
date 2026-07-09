@@ -1,0 +1,38 @@
+<svg viewBox="0 0 1200 630" xmlns="http://www.w3.org/2000/svg" style="background-color: #fff9ef;">
+
+  <defs>
+    <linearGradient id="gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#2bd4ff; stop-opacity:1" />
+      <stop offset="50%" style="stop-color:#9d7bff; stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#f0439c; stop-opacity:1" />
+    </linearGradient>
+    <filter id="halftone" x="0" y="0">
+      <feFlood flood-color="white" result="flood" />
+      <feComposite in="flood" in2="SourceAlpha" operator="in" />
+      <feMorphology operator="dilate" radius="1" result="dilated" />
+      <feGaussianBlur in="dilated" stdDeviation="1" result="blurred" />
+      <feMerge>
+        <feMergeNode />
+        <feMergeNode in="blurred" />
+      </feMerge>
+    </filter>
+  </defs>
+
+  <rect width="1200" height="630" fill="#fff9ef"/>
+
+  <g filter="url(#halftone)">
+    <circle cx="600" cy="315" r="300" fill="url(#gradient)" />
+  </g>
+
+  <g>
+    <path d="M600 0 L740 150 L600 150 Z" fill="#e8a33d" />
+    <path d="M600 630 L740 480 L600 480 Z" fill="#e8a33d" />
+    <path d="M0 315 L150 150 L150 480 Z" fill="#e8a33d" />
+    <path d="M1200 315 L1050 150 L1050 480 Z" fill="#e8a33d" />
+  </g>
+
+  <text x="50%" y="50%" text-anchor="middle" alignment-baseline="middle" fill="#17121f" font-size="48" font-weight="bold" font-family="sans-serif">
+    Unlocking Efficiency: The Benefits of Block-Based Storage with The Atom
+  </text>
+
+</svg>
