@@ -25,6 +25,10 @@ import Starburst from './Starburst.astro';
             </div>
           </div>
           <div class="slide-art" aria-hidden="true">
+            {slide.image ? (
+              <img class="art-image" src={slide.image} alt="" width="440" height="300" loading="lazy" />
+            ) : (
+            <Fragment>
             <Starburst class="burst" color={slide.burst} />
             {slide.art === 'atom' && <AtomMark size={230} class="art-main" />}
             {slide.art === 'orbit' && (
@@ -49,6 +53,8 @@ import Starburst from './Starburst.astro';
                 <path d="M50 8 l9 30 30 9 -30 9 -9 30 -9 -30 -30 -9 30 -9 z" fill="#9d7bff" stroke="#17121f" stroke-width="4" stroke-linejoin="round" />
                 <circle cx="50" cy="47" r="8" fill="#fff9ef" stroke="#17121f" stroke-width="3" />
               </svg>
+            )}
+            </Fragment>
             )}
           </div>
         </div>
@@ -159,6 +165,15 @@ import Starburst from './Starburst.astro';
   .slide-art :global(.art-main) {
     position: relative;
     filter: drop-shadow(5px 5px 0 rgba(23, 18, 31, 0.28));
+  }
+  .art-image {
+    position: relative;
+    max-width: 100%;
+    width: 440px;
+    height: auto;
+    border: var(--border);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow-pop);
   }
   .slider-controls {
     display: flex;

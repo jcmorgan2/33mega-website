@@ -154,6 +154,8 @@ export function buildSlideChange(payload, current) {
     ctaHref,
     art,
     burst,
+    // Optional featured image (uploaded or AI-generated) shown instead of the SVG art.
+    ...(payload.imagePath ? { image: payload.imagePath } : {}),
     expires,
   };
   slides.push(slide);

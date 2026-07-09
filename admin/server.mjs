@@ -140,9 +140,9 @@ const server = http.createServer(async (req, res) => {
       if (p === '/api/me') return json(res, 200, { email: user.sub });
 
       if (p === '/api/assist' && req.method === 'POST') {
-        const { task, type, prompt, headline, context } = await body(req);
+        const { task, type, prompt, headline, context, style } = await body(req);
         if (task === 'draft') return json(res, 200, { draft: await draftContent(type, prompt) });
-        if (task === 'graphic') return json(res, 200, { image: await generateGraphic(headline, context) });
+        if (task === 'graphic') return json(res, 200, { image: await generateGraphic(headline, context, style) });
         return json(res, 400, { error: 'unknown assist task' });
       }
 

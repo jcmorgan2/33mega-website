@@ -75,21 +75,45 @@ export async function draftContent(type, prompt) {
 }
 
 /**
+ * The house graphic styles the generator can adopt. "auto" (the default) picks
+ * one of the three at random so graphics vary but always look like 33Mega.
+ * These reference the company logo and the two founders' pop-art portraits.
+ */
+const GRAPHIC_STYLES = {
+  logo:
+    'in the style of the 33Mega logo: a geometric "atom" mark — two crossing elliptical ' +
+    'electron orbits over a rotated square with a small nucleus dot — drawn in clean thin ' +
+    'strokes with the cyan→violet→magenta gradient on a plain cream field. Minimal, precise, ' +
+    'lots of negative space.',
+  'portrait-bold':
+    'as a bold 1980s pop-art comic poster in the style of a screen-printed portrait: heavy ' +
+    'black outlines, saturated neon cyan / magenta / gold, halftone dot shading, dramatic ' +
+    'starburst rays radiating from the centre, high energy.',
+  'portrait-comic':
+    'as a clean pop-art comic illustration in the style of a halftone print portrait: bold ' +
+    'linework, cream background, restrained cyan/magenta/gold accents, subtle halftone dots, ' +
+    'calm and editorial.',
+};
+
+/**
  * Generate an on-brand pop-art SVG graphic (no raster model needed — SVG suits
- * the site's vector aesthetic and is sanitised before commit). Returns
+ * the site's vector aesthetic and is sanitised before commit). `style` is one of
+ * GRAPHIC_STYLES or "auto" (default → random house style). Returns
  * { name, dataBase64 } ready for media.processUpload (SVG branch).
  */
-export async function generateGraphic(headline, extra = '') {
+export async function generateGraphic(headline, extra = '', style = 'auto') {
+  const keys = Object.keys(GRAPHIC_STYLES);
+  const chosen = GRAPHIC_STYLES[style] ? style : keys[Math.floor(Math.random() * keys.length)];
   const system =
     `You are a graphic designer producing a single self-contained SVG for ${BRAND.voice}\n` +
     `Return ONLY the SVG markup — starting with <svg and ending with </svg>. No prose, no code fences, no <script>. ` +
-    `Use viewBox="0 0 1200 630". Style: bold 1980s pop-art — cream #fff9ef background, ` +
-    `halftone dots, gold #e8a33d starburst rays, thick #17121f outlines, and the cyan→violet→magenta ` +
-    `gradient (#2bd4ff → #9d7bff → #f0439c). Include the headline text prominently in a heavy sans-serif. ` +
-    `Keep it clean and legible; no photos, no external references, no fonts beyond generic sans-serif.`;
+    `Use viewBox="0 0 1200 630". Draw the graphic ${GRAPHIC_STYLES[chosen]} ` +
+    `Palette: cream #fff9ef, gold #e8a33d, and the cyan #2bd4ff → violet #9d7bff → magenta #f0439c ` +
+    `gradient, with #17121f outlines. Include the headline text prominently in a heavy sans-serif. ` +
+    `Keep it clean and legible; no external references, no fonts beyond generic sans-serif.`;
   const svg = await chat(
     system,
-    `Headline to feature: "${headline}".${extra ? ` Context: ${extra}.` : ''}`,
+    `Headline to feature: "${headline}".${extra ? ` Description: ${extra}.` : ''}`,
     { maxTokens: 4000 }
   );
   const start = svg.indexOf('<svg');

@@ -15,6 +15,8 @@ export interface HeroSlide {
   art: 'atom' | 'orbit' | 'exit' | 'spark';
   /** Accent colour for the slide's starburst. */
   burst?: string;
+  /** Optional featured image (web path) shown instead of the SVG art. */
+  image?: string;
 }
 
 /** Shape of an admin-added slide in extra-slides.json. */
@@ -27,6 +29,7 @@ interface ExtraSlide {
   ctaHref?: string;
   art?: HeroSlide['art'];
   burst?: string;
+  image?: string;
   /** ISO date (YYYY-MM-DD); slide auto-hides once this date has passed. */
   expires?: string;
 }
@@ -96,6 +99,7 @@ function fromExtra(s: ExtraSlide): HeroSlide | null {
     ctas,
     art: s.art || 'spark',
     burst: s.burst || '#9d7bff',
+    ...(s.image ? { image: s.image } : {}),
   };
 }
 

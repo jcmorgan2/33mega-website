@@ -14,6 +14,9 @@
   --font: 'Space Grotesk', 'Helvetica Neue', Arial, sans-serif;
 }
 * { box-sizing: border-box; }
+/* The [hidden] attribute must beat element display rules (e.g. .login { display:grid }),
+   otherwise the login panel stays on screen after sign-in. */
+[hidden] { display: none !important; }
 body { margin: 0; background: var(--paper); color: var(--ink); font-family: var(--font); font-size: 15px; }
 .muted { color: var(--ink-soft); font-size: 0.9em; }
 .error { color: var(--magenta-deep); font-weight: 700; }
@@ -63,7 +66,9 @@ textarea { resize: vertical; }
 .split { display: grid; grid-template-columns: 1.2fr 1fr; gap: 30px; }
 
 .ai-row { display: flex; gap: 10px; align-items: center; margin: 12px 0; flex-wrap: wrap; }
-.ai-row input { flex: 1; min-width: 200px; margin-top: 0; }
+.ai-row input[type="text"], .ai-row > input:not([type]) { flex: 1; min-width: 200px; margin-top: 0; }
+.inline-field { flex: 0 0 auto; display: flex; align-items: center; gap: 6px; font-size: 0.85rem; }
+.inline-field select { width: auto; margin-top: 0; }
 
 .image-block { border: 2px dashed var(--line); border-radius: 10px; padding: 14px; margin: 16px 0; }
 .thumb-wrap { margin-top: 10px; }

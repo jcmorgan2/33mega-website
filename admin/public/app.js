@@ -7,6 +7,13 @@ const token = () => sessionStorage.getItem(TOKEN_KEY);
 const setToken = (t) => (t ? sessionStorage.setItem(TOKEN_KEY, t) : sessionStorage.removeItem(TOKEN_KEY));
 const escapeHtml = (s) => String(s).replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
 
+// AI-graphic house styles (mirrors GRAPHIC_STYLES in admin/lib/assist.mjs).
+const STYLE_OPTIONS =
+  '<option value="auto">House style (auto)</option>' +
+  '<option value="logo">Logo style (atom mark)</option>' +
+  '<option value="portrait-bold">Pop-art portrait — bold</option>' +
+  '<option value="portrait-comic">Pop-art portrait — comic</option>';
+
 async function api(path, opts = {}) {
   const res = await fetch(path, {
     ...opts,
@@ -113,10 +120,12 @@ function renderNews(root) {
       <label>Body (Markdown)<textarea id="n-body" rows="10"></textarea></label>
       <div class="image-block">
         <strong>Featured image (optional)</strong>
+        <label>AI graphic description<input id="n-gfx" placeholder="Describe the graphic to generate (auto-filled from your AI draft prompt)" /></label>
         <div class="ai-row">
-          <input id="n-file" type="file" accept="image/*" />
-          <span class="muted">or</span>
+          <label class="inline-field">Style<select id="n-style">${STYLE_OPTIONS}</select></label>
           <button id="n-gen" class="btn ghost">🎨 AI graphic</button>
+          <span class="muted">or upload</span>
+          <input id="n-file" type="file" accept="image/*" />
         </div>
         <div id="n-thumb" class="thumb-wrap"></div>
       </div>
@@ -131,6 +140,7 @@ function renderNews(root) {
       const { draft } = await api('/api/assist', { method: 'POST', body: JSON.stringify({ task: 'draft', type: 'news', prompt: $('#n-prompt').value }) });
       $('#n-title').value = draft.title || ''; $('#n-desc').value = draft.description || '';
       $('#n-body').value = draft.body || ''; if (draft.tag) $('#n-tag').value = draft.tag;
+      if (!$('#n-gfx').value) $('#n-gfx').value = $('#n-prompt').value || draft.title || '';
       say('Drafted — review, add an image, submit.', 'ok');
     } catch (e) { say(e.message, 'error'); }
   };
@@ -138,7 +148,7 @@ function renderNews(root) {
   $('#n-gen').onclick = async () => {
     say('Generating pop-art graphic (can take ~15s)…');
     try {
-      const { image: img } = await api('/api/assist', { method: 'POST', body: JSON.stringify({ task: 'graphic', headline: $('#n-title').value || $('#n-prompt').value, context: $('#n-prompt').value }) });
+      const { image: img } = await api('/api/assist', { method: 'POST', body: JSON.stringify({ task: 'graphic', headline: $('#n-title').value || $('#n-prompt').value, context: $('#n-gfx').value || $('#n-prompt').value, style: $('#n-style').value }) });
       image = img; imagePreview($('#n-thumb'), image); say('Graphic ready.', 'ok');
     } catch (e) { say(e.message, 'error'); }
   };
@@ -177,6 +187,17 @@ async function renderSlides(root) {
             <label>Expires<input id="s-exp" type="date" /></label>
           </div>
           <p class="field-note">The slide hides itself automatically after the expiry date.</p>
+          <div class="image-block">
+            <strong>Slide graphic (optional — replaces the art style)</strong>
+            <label>AI graphic description<input id="s-gfx" placeholder="Describe the graphic to generate (auto-filled from your AI draft prompt)" /></label>
+            <div class="ai-row">
+              <label class="inline-field">Style<select id="s-style">${STYLE_OPTIONS}</select></label>
+              <button id="s-gen" class="btn ghost">🎨 AI graphic</button>
+              <span class="muted">or upload</span>
+              <input id="s-file" type="file" accept="image/*" />
+            </div>
+            <div id="s-thumb" class="thumb-wrap"></div>
+          </div>
           <button id="s-add" class="btn primary">Add slide (preview)</button>
         </div>
         <div>
@@ -186,6 +207,7 @@ async function renderSlides(root) {
       </div>
     </div>`));
   const say = statusLine(root);
+  let image = null;
 
   async function loadList() {
     try {
@@ -211,7 +233,16 @@ async function renderSlides(root) {
       const { draft } = await api('/api/assist', { method: 'POST', body: JSON.stringify({ task: 'draft', type: 'slide', prompt: $('#s-prompt').value }) });
       $('#s-eyebrow').value = draft.eyebrow || 'News'; $('#s-title').value = draft.title || '';
       $('#s-text').value = draft.text || ''; $('#s-cta').value = draft.ctaLabel || ''; $('#s-href').value = draft.ctaHref || '';
+      if (!$('#s-gfx').value) $('#s-gfx').value = $('#s-prompt').value || draft.title || '';
       say('Drafted.', 'ok');
+    } catch (e) { say(e.message, 'error'); }
+  };
+  $('#s-file').onchange = async () => { image = await fileToImage($('#s-file')); imagePreview($('#s-thumb'), image); };
+  $('#s-gen').onclick = async () => {
+    say('Generating pop-art graphic (can take ~15s)…');
+    try {
+      const { image: img } = await api('/api/assist', { method: 'POST', body: JSON.stringify({ task: 'graphic', headline: $('#s-title').value || $('#s-prompt').value, context: $('#s-gfx').value || $('#s-prompt').value, style: $('#s-style').value }) });
+      image = img; imagePreview($('#s-thumb'), image); say('Graphic ready.', 'ok');
     } catch (e) { say(e.message, 'error'); }
   };
   $('#s-add').onclick = async () => {
@@ -222,6 +253,7 @@ async function renderSlides(root) {
         eyebrow: $('#s-eyebrow').value, title: $('#s-title').value, text: $('#s-text').value,
         ctaLabel: $('#s-cta').value, ctaHref: $('#s-href').value,
         art: $('#s-art').value, burst: $('#s-burst').value,
+        image: image || undefined,
       }) });
       say(`Slide submitted (draft #${r.draft_id}) — preview & publish in Pending.`, 'ok');
       loadList();
