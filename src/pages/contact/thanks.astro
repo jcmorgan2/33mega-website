@@ -1,0 +1,40 @@
+---
+import Base from '../../layouts/Base.astro';
+import Starburst from '../../components/Starburst.astro';
+---
+<Base
+  title="Thanks — we've got your message | 33Mega"
+  description="Your message has reached 33Mega. A media workflow specialist will be in touch."
+>
+  <section class="band halftone">
+    <div class="section-inner center thanks">
+      <Starburst class="thanks-burst" color="#e8a33d" />
+      <div class="thanks-inner">
+        <p class="eyebrow">Message sent</p>
+        <h1>Thanks — it's landed in our inbox.</h1>
+        <p class="lead" style="max-width: 620px; margin-left: auto; margin-right: auto;">
+          A media workflow specialist will get back to you shortly. We'll ask about the workflow
+          before we talk about hardware — and if we're not the right fit, we'll say so.
+        </p>
+        <div class="actions" style="justify-content: center;">
+          <a class="button primary" href="/">Back to the homepage</a>
+          <a class="button ghost" href="/atom/">Explore The Atom</a>
+        </div>
+      </div>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .thanks { position: relative; padding: 60px 0; }
+  .thanks :global(.thanks-burst) {
+    position: absolute;
+    width: 320px;
+    height: 320px;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    opacity: 0.25;
+  }
+  .thanks-inner { position: relative; }
+</style>
