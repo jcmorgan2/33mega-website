@@ -146,7 +146,7 @@ function renderNews(root) {
   };
   $('#n-file').onchange = async () => { image = await fileToImage($('#n-file')); imagePreview($('#n-thumb'), image); };
   $('#n-gen').onclick = async () => {
-    say('Generating pop-art graphic (can take ~15s)…');
+    say('Generating pop-art graphic (can take up to a minute)…');
     try {
       const { image: img } = await api('/api/assist', { method: 'POST', body: JSON.stringify({ task: 'graphic', headline: $('#n-title').value || $('#n-prompt').value, context: $('#n-gfx').value || $('#n-prompt').value, style: $('#n-style').value }) });
       image = img; imagePreview($('#n-thumb'), image); say('Graphic ready.', 'ok');
@@ -239,7 +239,7 @@ async function renderSlides(root) {
   };
   $('#s-file').onchange = async () => { image = await fileToImage($('#s-file')); imagePreview($('#s-thumb'), image); };
   $('#s-gen').onclick = async () => {
-    say('Generating pop-art graphic (can take ~15s)…');
+    say('Generating pop-art graphic (can take up to a minute)…');
     try {
       const { image: img } = await api('/api/assist', { method: 'POST', body: JSON.stringify({ task: 'graphic', headline: $('#s-title').value || $('#s-prompt').value, context: $('#s-gfx').value || $('#s-prompt').value, style: $('#s-style').value }) });
       image = img; imagePreview($('#s-thumb'), image); say('Graphic ready.', 'ok');

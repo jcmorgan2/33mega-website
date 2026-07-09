@@ -1,10 +1,12 @@
 /**
- * AI assist via the OpenAI API — draft news/slide copy and generate an on-brand
- * pop-art SVG graphic. Server-side only (the API key never reaches the browser).
- * Uses fetch directly against the Chat Completions endpoint (no SDK).
+ * AI assist via the OpenAI API — draft news/slide copy (Chat Completions) and
+ * generate an on-brand pop-art graphic (Images API, gpt-image-1). Server-side
+ * only (the API key never reaches the browser). Uses fetch directly (no SDK).
  */
 const OPENAI = 'https://api.openai.com/v1/chat/completions';
+const OPENAI_IMAGES = 'https://api.openai.com/v1/images/generations';
 const MODEL = process.env.OPENAI_MODEL || 'gpt-4o-mini';
+const IMAGE_MODEL = process.env.OPENAI_IMAGE_MODEL || 'gpt-image-1';
 
 const BRAND = {
   voice:
@@ -75,53 +77,57 @@ export async function draftContent(type, prompt) {
 }
 
 /**
- * The house graphic styles the generator can adopt. "auto" (the default) picks
- * one of the three at random so graphics vary but always look like 33Mega.
- * These reference the company logo and the two founders' pop-art portraits.
+ * The house graphic styles the image model can adopt. "auto" (the default)
+ * picks one of the three at random so graphics vary but always look like
+ * 33Mega. They reference the company logo and the founders' pop-art portraits.
  */
 const GRAPHIC_STYLES = {
   logo:
-    'in the style of the 33Mega logo: a geometric "atom" mark — two crossing elliptical ' +
-    'electron orbits over a rotated square with a small nucleus dot — drawn in clean thin ' +
-    'strokes with the cyan→violet→magenta gradient on a plain cream field. Minimal, precise, ' +
-    'lots of negative space.',
+    'Clean geometric vector-emblem style echoing the 33Mega atom logo: thin precise ' +
+    'line work, crossing elliptical orbit shapes and a rotated square motif, drawn in a ' +
+    'smooth cyan-to-violet-to-magenta gradient on a plain cream background. Minimal ' +
+    'composition, generous negative space, flat vector look.',
   'portrait-bold':
-    'as a bold 1980s pop-art comic poster in the style of a screen-printed portrait: heavy ' +
-    'black outlines, saturated neon cyan / magenta / gold, halftone dot shading, dramatic ' +
-    'starburst rays radiating from the centre, high energy.',
+    'Bold 1980s pop-art screen-print poster style: heavy black comic outlines, ' +
+    'saturated neon cyan, magenta, violet and gold inks, halftone dot shading, a ' +
+    'dramatic gold starburst of rays and sparkles radiating from the centre, ' +
+    'psychedelic sunset colours, high energy.',
   'portrait-comic':
-    'as a clean pop-art comic illustration in the style of a halftone print portrait: bold ' +
-    'linework, cream background, restrained cyan/magenta/gold accents, subtle halftone dots, ' +
-    'calm and editorial.',
+    'Clean vintage comic-book illustration style: confident black ink linework, ' +
+    'cream paper background, visible halftone dot shading, restrained cyan, magenta ' +
+    'and gold accents, calm editorial mood, mid-century print feel.',
 };
 
 /**
- * Generate an on-brand pop-art SVG graphic (no raster model needed — SVG suits
- * the site's vector aesthetic and is sanitised before commit). `style` is one of
- * GRAPHIC_STYLES or "auto" (default → random house style). Returns
- * { name, dataBase64 } ready for media.processUpload (SVG branch).
+ * Generate an on-brand pop-art graphic with the OpenAI Images API. The admin's
+ * description is the primary subject; `headline` is only a fallback subject.
+ * `style` is a GRAPHIC_STYLES key or "auto" (default → random house style).
+ * Returns { name, dataBase64 } (PNG) ready for media.processUpload, which
+ * resizes and re-encodes it to WebP.
  */
-export async function generateGraphic(headline, extra = '', style = 'auto') {
+export async function generateGraphic(headline, description = '', style = 'auto') {
   const keys = Object.keys(GRAPHIC_STYLES);
   const chosen = GRAPHIC_STYLES[style] ? style : keys[Math.floor(Math.random() * keys.length)];
-  const system =
-    `You are a graphic designer producing a single self-contained SVG for ${BRAND.voice}\n` +
-    `Return ONLY the SVG markup — starting with <svg and ending with </svg>. No prose, no code fences, no <script>. ` +
-    `Use viewBox="0 0 1200 630". Draw the graphic ${GRAPHIC_STYLES[chosen]} ` +
-    `Palette: cream #fff9ef, gold #e8a33d, and the cyan #2bd4ff → violet #9d7bff → magenta #f0439c ` +
-    `gradient, with #17121f outlines. Include the headline text prominently in a heavy sans-serif. ` +
-    `Keep it clean and legible; no external references, no fonts beyond generic sans-serif.`;
-  const svg = await chat(
-    system,
-    `Headline to feature: "${headline}".${extra ? ` Description: ${extra}.` : ''}`,
-    { maxTokens: 4000 }
-  );
-  const start = svg.indexOf('<svg');
-  const end = svg.lastIndexOf('</svg>');
-  if (start === -1 || end === -1) throw new Error('model did not return an SVG');
-  const clean = svg.slice(start, end + 6);
-  return {
-    name: `ai-graphic-${Date.now().toString(36)}.svg`,
-    dataBase64: Buffer.from(clean, 'utf8').toString('base64'),
-  };
+  const subject = String(description || headline || 'the 33Mega atom logo mark').trim();
+
+  const prompt =
+    `A pop-art illustration for a media-technology company website.\n` +
+    `Subject: ${subject}.\n` +
+    `Style: ${GRAPHIC_STYLES[chosen]}\n` +
+    `Brand palette: cream #fff9ef background, gold #e8a33d accents, and cyan #2bd4ff, ` +
+    `violet #9d7bff, magenta #f0439c as the main colours, with near-black #17121f outlines.\n` +
+    `Flat illustration, not photorealistic. Do NOT include any text, words, lettering, ` +
+    `captions or watermarks unless the subject explicitly asks for them. ` +
+    `One clear focal composition, clean and uncluttered.`;
+
+  const res = await fetch(OPENAI_IMAGES, {
+    method: 'POST',
+    headers: { Authorization: `Bearer ${key()}`, 'Content-Type': 'application/json' },
+    body: JSON.stringify({ model: IMAGE_MODEL, prompt, size: '1536x1024', quality: 'medium', n: 1 }),
+  });
+  if (!res.ok) throw new Error(`OpenAI image ${res.status}: ${(await res.text()).slice(0, 300)}`);
+  const data = await res.json();
+  const b64 = data.data?.[0]?.b64_json;
+  if (!b64) throw new Error('no image returned');
+  return { name: `ai-graphic-${Date.now().toString(36)}.png`, dataBase64: b64 };
 }
