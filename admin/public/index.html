@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="robots" content="noindex" />
+  <title>33Mega Admin</title>
+  <link rel="stylesheet" href="/styles.css" />
+</head>
+<body>
+  <!-- login view -->
+  <main id="login" class="login">
+    <form id="login-form" class="card">
+      <div class="brand"><span class="mark"></span> 33MEGA Admin</div>
+      <p class="muted">Sign in to manage news posts and homepage slides.</p>
+      <label>Email<input type="email" id="email" autocomplete="username" required placeholder="you@33mega.cloud" /></label>
+      <label>Password<input type="password" id="password" autocomplete="current-password" required /></label>
+      <button type="submit" class="btn">Sign in</button>
+      <p id="login-error" class="error" hidden></p>
+    </form>
+  </main>
+
+  <!-- app shell (shown after login) -->
+  <div id="app" hidden>
+    <header class="topbar">
+      <div class="brand"><span class="mark"></span> 33MEGA Admin</div>
+      <nav class="tabs">
+        <button data-tab="news" class="tab active">News</button>
+        <button data-tab="slides" class="tab">Homepage slides</button>
+        <button data-tab="drafts" class="tab">Pending</button>
+      </nav>
+      <div class="spacer"></div>
+      <span id="who" class="muted"></span>
+      <button id="logout" class="btn ghost">Sign out</button>
+    </header>
+    <main class="workspace">
+      <section id="panel" class="panel"></section>
+    </main>
+  </div>
+
+  <script src="/app.js" type="module"></script>
+</body>
+</html>

@@ -1,0 +1,14 @@
+{
+  "name": "33mega-admin",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "ADMIN_USERS=\"$(cat secrets/admin-users.json)\" JWT_SECRET=\"$(cat secrets/jwt-secret.txt)\" node server.mjs",
+    "start": "node server.mjs"
+  },
+  "dependencies": {
+    "sharp": "^0.33.5"
+  },
+  "engines": { "node": ">=20" }
+}

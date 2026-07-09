@@ -1,5 +1,11 @@
-// Homepage hero slides. Add a new object to this array to add a slide —
-// the slider picks them up automatically.
+// Homepage hero slides.
+//
+// CORE slides live here in code and are permanent — the admin tool can never
+// edit or remove them. Extra, time-limited slides are managed through the admin
+// app and stored in `extra-slides.json`; non-expired ones are appended after the
+// core slides at build time.
+import extra from './extra-slides.json';
+
 export interface HeroSlide {
   eyebrow: string;
   title: string;
@@ -11,7 +17,21 @@ export interface HeroSlide {
   burst?: string;
 }
 
-export const slides: HeroSlide[] = [
+/** Shape of an admin-added slide in extra-slides.json. */
+interface ExtraSlide {
+  id: string;
+  eyebrow?: string;
+  title: string;
+  text?: string;
+  ctaLabel?: string;
+  ctaHref?: string;
+  art?: HeroSlide['art'];
+  burst?: string;
+  /** ISO date (YYYY-MM-DD); slide auto-hides once this date has passed. */
+  expires?: string;
+}
+
+const coreSlides: HeroSlide[] = [
   {
     eyebrow: 'The Atom',
     title: 'File and object storage for Media Workflows. One system. Fully supported.',
@@ -59,3 +79,28 @@ export const slides: HeroSlide[] = [
     burst: '#9d7bff',
   },
 ];
+
+/** Map an admin-added slide to the HeroSlide shape, dropping expired ones. */
+function fromExtra(s: ExtraSlide): HeroSlide | null {
+  if (s.expires) {
+    const today = new Date().toISOString().slice(0, 10);
+    if (s.expires < today) return null;
+  }
+  const ctas = s.ctaLabel && s.ctaHref
+    ? [{ label: s.ctaLabel, href: s.ctaHref, style: 'primary' as const }]
+    : [];
+  return {
+    eyebrow: s.eyebrow || 'News',
+    title: s.title,
+    text: s.text || '',
+    ctas,
+    art: s.art || 'spark',
+    burst: s.burst || '#9d7bff',
+  };
+}
+
+const extraSlides: HeroSlide[] = ((extra as { slides: ExtraSlide[] }).slides || [])
+  .map(fromExtra)
+  .filter((s): s is HeroSlide => s !== null);
+
+export const slides: HeroSlide[] = [...coreSlides, ...extraSlides];

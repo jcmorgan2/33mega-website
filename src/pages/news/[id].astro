@@ -25,6 +25,9 @@ const { Content } = await render(post);
   </section>
   <section class="band white">
     <div class="section-inner">
+      {post.data.image && (
+        <img class="post-hero-image" src={post.data.image} alt="" width="900" height="480" loading="eager" />
+      )}
       <article class="prose">
         <Content />
       </article>
@@ -32,3 +35,16 @@ const { Content } = await render(post);
     </div>
   </section>
 </Base>
+
+<style>
+  .post-hero-image {
+    display: block;
+    width: 100%;
+    max-width: 760px;
+    border: var(--border);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow-pop-sm);
+    margin-bottom: 30px;
+    object-fit: cover;
+  }
+</style>

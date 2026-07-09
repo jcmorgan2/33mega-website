@@ -9,6 +9,7 @@ const news = defineCollection({
     pubDate: z.coerce.date(),
     author: z.string().default('33Mega'),
     tag: z.string().default('News'),
+    image: z.string().optional(),
   }),
 });
 

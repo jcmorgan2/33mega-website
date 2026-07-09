@@ -25,3 +25,5 @@ pnpm-debug.log*
 
 # firebase deploy cache
 .firebase/
+admin/secrets/
+admin/node_modules/

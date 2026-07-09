@@ -1,0 +1,6 @@
+# Never upload these to Cloud Build
+secrets/
+node_modules/
+.env
+*.local
+npm-debug.log
