@@ -1,3 +1,15 @@
 {
-  "slides": []
+  "slides": [
+    {
+      "id": "pipeline-self-test-delete-me-mrdjzucp",
+      "eyebrow": "News",
+      "title": "Pipeline self-test (delete me)",
+      "text": "temporary",
+      "ctaLabel": "",
+      "ctaHref": "",
+      "art": "spark",
+      "burst": "#9d7bff",
+      "expires": "2030-01-01"
+    }
+  ]
 }
