@@ -37,7 +37,7 @@ interface ExtraSlide {
 const coreSlides: HeroSlide[] = [
   {
     eyebrow: 'The Atom',
-    title: 'File and object storage for Media Workflows. One system. Fully supported.',
+    title: 'File and object storage for Media Workflows. One system.',
     text:
       'The Atom is a turnkey storage platform for Media workflows; designed, delivered and supported so you can just use it.',
     ctas: [

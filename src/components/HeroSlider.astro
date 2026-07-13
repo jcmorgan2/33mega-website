@@ -122,22 +122,24 @@ import Starburst from './Starburst.astro';
     background-color: var(--paper);
     overflow: hidden;
   }
-  .slides { position: relative; min-height: 480px; }
+  /* Stack every slide in the same grid cell: the container permanently takes
+     the height of the tallest slide, so the page never jumps between slides. */
+  .slides { display: grid; min-height: 480px; }
   .slide {
-    position: absolute;
-    inset: 0;
+    grid-area: 1 / 1;
     opacity: 0;
+    visibility: hidden;
     transform: translateX(24px);
-    transition: opacity 0.45s ease, transform 0.45s ease;
+    transition: opacity 0.45s ease, transform 0.45s ease, visibility 0.45s;
     pointer-events: none;
     display: flex;
     align-items: center;
   }
   .slide.active {
     opacity: 1;
+    visibility: visible;
     transform: none;
     pointer-events: auto;
-    position: relative;
   }
   .slide-inner {
     display: grid;
@@ -212,6 +214,5 @@ import Starburst from './Starburst.astro';
     .slide-art { min-height: 210px; }
     .slide-art :global(.burst) { width: 230px; height: 230px; }
     .slide-art :global(.art-main) { width: 160px; height: 160px; }
-    .slides { min-height: 620px; }
   }
 </style>
