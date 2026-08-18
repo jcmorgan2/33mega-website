@@ -1,3 +1,16 @@
 {
-  "slides": []
+  "slides": [
+    {
+      "id": "meet-pete-jonathan-at-ibc-expo-2026-msyt60ik",
+      "eyebrow": "Event",
+      "title": "Meet Pete & Jonathan at IBC Expo 2026",
+      "text": "Join us in Amsterdam for IBC Expo 2026. Connect with Pete and Jonathan to explore how The Atom can transform your media storage solutions.",
+      "ctaLabel": "Schedule a Meeting",
+      "ctaHref": "/meet-us/",
+      "art": "spark",
+      "burst": "#9d7bff",
+      "image": "/media/uploads/2026/08/ai-graphic-msyt4e63.webp",
+      "expires": "2026-09-22"
+    }
+  ]
 }
