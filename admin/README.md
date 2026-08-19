@@ -32,7 +32,7 @@ Open `http://localhost:8080`. `secrets/` is git-ignored.
 
 ## Deploy to Cloud Run
 
-**Live:** https://mega33-admin-618002377543.europe-west1.run.app — deployed to the
+**Live:** see the Cloud Run console for the service URL (not published here) — deployed to the
 `electric-spark-468812-i6` GCP project (chosen because `mega33-cloud` couldn't be
 linked to billing: the account is at its 5-project quota; relocate to
 `mega33-cloud` once a quota increase clears). Secrets live in Secret Manager and
