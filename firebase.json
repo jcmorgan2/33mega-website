@@ -3,6 +3,13 @@
     "public": "dist",
     "ignore": ["firebase.json", "**/.*", "**/node_modules/**"],
     "cleanUrls": true,
-    "trailingSlash": true
+    "trailingSlash": true,
+    "redirects": [
+      {
+        "source": "/meet-us{,/}",
+        "destination": "/contact/",
+        "type": 301
+      }
+    ]
   }
 }
