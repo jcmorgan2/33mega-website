@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://33mega.cloud/sitemap-index.xml

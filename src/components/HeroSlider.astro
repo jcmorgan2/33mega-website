@@ -16,7 +16,9 @@ import Starburst from './Starburst.astro';
         <div class="section-inner slide-inner">
           <div class="slide-copy">
             <p class="eyebrow">{slide.eyebrow}</p>
-            <h2 class="slide-title">{slide.title}</h2>
+            {i === 0
+              ? <h1 class="slide-title">{slide.title}</h1>
+              : <h2 class="slide-title">{slide.title}</h2>}
             <p class="lead">{slide.text}</p>
             <div class="actions">
               {slide.ctas.map((cta) => (

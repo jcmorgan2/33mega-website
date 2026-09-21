@@ -5,12 +5,55 @@ import AtomMark from '../components/AtomMark.astro';
 interface Props {
   title: string;
   description: string;
+  /** Social/share image (site-relative path). Defaults to the 1200x630 brand card. */
+  image?: string;
+  /** 'article' for news posts; everything else is 'website'. */
+  ogType?: 'website' | 'article';
+  /** Keep this page out of search results (e.g. 404, thank-you). */
+  noindex?: boolean;
+  /** Extra page-specific schema.org objects, added alongside the site-wide ones. */
+  jsonLd?: Record<string, unknown>[];
 }
-const { title, description } = Astro.props;
+const { title, description, image, ogType = 'website', noindex = false, jsonLd = [] } = Astro.props;
 const canonical = new URL(Astro.url.pathname, Astro.site);
+const ogImage = new URL(image || '/images/og-card.png', Astro.site);
+const isDefaultCard = !image;
+
+// Site-wide structured data: who we are, and the site itself.
+const siteUrl = Astro.site!.toString().replace(/\/$/, '');
+const schema = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'Organization',
+    '@id': `${siteUrl}/#organization`,
+    name: '33Mega',
+    legalName: '33Mega Ltd',
+    url: `${siteUrl}/`,
+    logo: `${siteUrl}/images/33mega-logo.png`,
+    email: '33@33mega.cloud',
+    slogan: 'Every human. 33 megatons of good.',
+    description:
+      'Fully supported file, object and block storage for media workflows, built on Ceph and standard Dell hardware.',
+    address: { '@type': 'PostalAddress', addressLocality: 'Cardiff', addressCountry: 'GB' },
+    founder: [
+      { '@type': 'Person', name: 'Jonathan Morgan' },
+      { '@type': 'Person', name: 'Peter Watling' },
+    ],
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'WebSite',
+    '@id': `${siteUrl}/#website`,
+    name: '33Mega',
+    url: `${siteUrl}/`,
+    publisher: { '@id': `${siteUrl}/#organization` },
+    inLanguage: 'en-GB',
+  },
+  ...jsonLd,
+];
 ---
 <!doctype html>
-<html lang="en">
+<html lang="en-GB">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -18,12 +61,22 @@ const canonical = new URL(Astro.url.pathname, Astro.site);
     <meta name="description" content={description} />
     <link rel="canonical" href={canonical} />
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    {noindex && <meta name="robots" content="noindex, follow" />}
     <meta property="og:site_name" content="33Mega" />
+    <meta property="og:locale" content="en_GB" />
+    <meta property="og:url" content={canonical} />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
-    <meta property="og:image" content={new URL('/images/33mega-logo.png', Astro.site)} />
-    <meta property="og:type" content="website" />
+    <meta property="og:image" content={ogImage} />
+    {isDefaultCard && <meta property="og:image:width" content="1200" />}
+    {isDefaultCard && <meta property="og:image:height" content="630" />}
+    <meta property="og:image:alt" content={title} />
+    <meta property="og:type" content={ogType} />
     <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImage} />
+    <script type="application/ld+json" set:html={JSON.stringify(schema)} />
     <link rel="alternate" type="application/rss+xml" title="33Mega News" href="/rss.xml" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />

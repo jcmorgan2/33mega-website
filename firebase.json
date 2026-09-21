@@ -5,11 +5,23 @@
     "cleanUrls": true,
     "trailingSlash": true,
     "redirects": [
-      {
-        "source": "/meet-us{,/}",
-        "destination": "/contact/",
-        "type": 301
-      }
+      { "source": "/meet-us{,/}", "destination": "/contact/", "type": 301 },
+
+      { "source": "/about.html", "destination": "/about/", "type": 301 },
+      { "source": "/contact.html", "destination": "/contact/", "type": 301 },
+
+      { "source": "/services/ai-consultancy.html", "destination": "/ai-consultancy/", "type": 301 },
+      { "source": "/services/agentic-automation.html", "destination": "/ai-consultancy/", "type": 301 },
+      { "source": "/services/digital-transformation.html", "destination": "/ai-consultancy/", "type": 301 },
+      { "source": "/services/technology-review.html", "destination": "/ai-consultancy/", "type": 301 },
+      { "source": "/services/fractional-cto.html", "destination": "/ai-consultancy/", "type": 301 },
+      { "source": "/services/secure-data-storage.html", "destination": "/atom/", "type": 301 },
+      { "source": "/services{,/}", "destination": "/ai-consultancy/", "type": 301 },
+
+      { "source": "/products/33mega-vault.html", "destination": "/atom/", "type": 301 },
+      { "source": "/products{,/}", "destination": "/atom/", "type": 301 },
+      { "source": "/datasheets/33mega-vault.html", "destination": "/downloads/33mega-the-atom-datasheet.pdf", "type": 301 },
+      { "source": "/assets/33mega-vault-datasheet.pdf", "destination": "/downloads/33mega-the-atom-datasheet.pdf", "type": 301 }
     ]
   }
 }
